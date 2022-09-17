@@ -266,7 +266,7 @@ cdef get_line_start(object code,int target):
 # TJ BEGIN
 cdef object slow_locals(PyFrameObject* source_frame):
     slow_locals=None
-    if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)==0 and source_frame.f_locals!=source_frame.f_globals:
+    if source_frame.f_code:
         slow_locals=(<object>source_frame).f_locals.copy()
     return slow_locals
 # TJ END
