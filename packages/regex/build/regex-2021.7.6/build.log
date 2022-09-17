@@ -1,0 +1,3 @@
+["cc", "-Wno-unused-result", "-Wsign-compare", "-DNDEBUG", "-g", "-fwrapv", "-O3", "-Wall", "-fPIC", "-I/usr/local/include/python3.9", "-c", "regex_3/_regex.c", "-o", "build/temp.linux-x86_64-3.9/regex_3/_regex.o"]
+["cc", "-Wno-unused-result", "-Wsign-compare", "-DNDEBUG", "-g", "-fwrapv", "-O3", "-Wall", "-fPIC", "-I/usr/local/include/python3.9", "-c", "regex_3/_regex_unicode.c", "-o", "build/temp.linux-x86_64-3.9/regex_3/_regex_unicode.o"]
+["gcc", "-pthread", "-shared", "-Wl,--strip-all", "build/temp.linux-x86_64-3.9/regex_3/_regex.o", "build/temp.linux-x86_64-3.9/regex_3/_regex_unicode.o", "-L/usr/local/lib", "-o", "build/lib.linux-x86_64-3.9/regex/_regex.cpython-39-x86_64-linux-gnu.so"]

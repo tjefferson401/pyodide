@@ -15,7 +15,6 @@ __pycache__
 .pytest_cache/
 .vscode
 
-build
 ccache
 cpython/downloads
 cpython/installs

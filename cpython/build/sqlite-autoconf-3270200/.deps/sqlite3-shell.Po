@@ -1,0 +1,130 @@
+sqlite3-shell.o: shell.c \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/compat/stdlib.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/stdlib.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/features.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/alltypes.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/alloca.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/compat/string.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/string.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/strings.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/stdio.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/wasi/api.h \
+  /src/emsdk/emsdk/upstream/lib/clang/13.0.0/include/stddef.h \
+  /src/emsdk/emsdk/upstream/lib/clang/13.0.0/include/__stddef_max_align_t.h \
+  /src/emsdk/emsdk/upstream/lib/clang/13.0.0/include/stdint.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/stdint.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/stdint.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/assert.h \
+  sqlite3.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/compat/stdarg.h \
+  /src/emsdk/emsdk/upstream/lib/clang/13.0.0/include/stdarg.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/compat/ctype.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/ctype.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/signal.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/signal.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/pwd.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/unistd.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/posix.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/dirent.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/sys/types.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/endian.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/sys/select.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/compat/sys/stat.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/sys/stat.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/stat.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/sys/time.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/sys/resource.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/resource.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/fcntl.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/fcntl.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/utime.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/compat/time.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/time.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/errno.h \
+  /src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/errno.h
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/compat/stdlib.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/stdlib.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/features.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/alltypes.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/alloca.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/compat/string.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/string.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/strings.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/stdio.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/wasi/api.h:
+
+/src/emsdk/emsdk/upstream/lib/clang/13.0.0/include/stddef.h:
+
+/src/emsdk/emsdk/upstream/lib/clang/13.0.0/include/__stddef_max_align_t.h:
+
+/src/emsdk/emsdk/upstream/lib/clang/13.0.0/include/stdint.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/stdint.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/stdint.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/assert.h:
+
+sqlite3.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/compat/stdarg.h:
+
+/src/emsdk/emsdk/upstream/lib/clang/13.0.0/include/stdarg.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/compat/ctype.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/ctype.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/signal.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/signal.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/pwd.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/unistd.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/posix.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/dirent.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/sys/types.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/endian.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/sys/select.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/compat/sys/stat.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/sys/stat.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/stat.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/sys/time.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/sys/resource.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/resource.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/fcntl.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/fcntl.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/utime.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/compat/time.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/time.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/errno.h:
+
+/src/emsdk/emsdk/upstream/emscripten/cache/sysroot/include/bits/errno.h:

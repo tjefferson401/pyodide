@@ -1,0 +1,2 @@
+["cc", "-Wno-unused-result", "-Wsign-compare", "-DNDEBUG", "-g", "-fwrapv", "-O3", "-Wall", "-fPIC", "-I/usr/local/include/python3.9", "-c", "src/markupsafe/_speedups.c", "-o", "build/temp.linux-x86_64-3.9/src/markupsafe/_speedups.o"]
+["gcc", "-pthread", "-shared", "-Wl,--strip-all", "build/temp.linux-x86_64-3.9/src/markupsafe/_speedups.o", "-L/usr/local/lib", "-o", "build/lib.linux-x86_64-3.9/markupsafe/_speedups.cpython-39-x86_64-linux-gnu.so"]
