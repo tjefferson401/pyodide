@@ -1,0 +1,10 @@
+package:
+  name: unthrow
+  version: "0.1"
+
+build:
+  script: |
+    pip3 install cython
+
+source:
+  path: ./src

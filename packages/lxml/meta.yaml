@@ -11,14 +11,14 @@ build:
   cflags: |
     -I$(PYODIDE_ROOT)/packages/libxml/build/libxml-2.9.10/include
     -I$(PYODIDE_ROOT)/packages/libxslt/build/libxslt-1.1.33/
-    -L$(PYODIDE_ROOT)/packages/zlib/build/zlib-1.2.11/include
+    -L$(PYODIDE_ROOT)/packages/zlib/build/zlib-1.2.12/include
     -I$(PYODIDE_ROOT)/packages/libiconv/build/libiconv-1.16/include
     -Wno-implicit-function-declaration
   ldflags: |
     -L$(PYODIDE_ROOT)/packages/libxml/build/libxml-2.9.10/.libs/
     -L$(PYODIDE_ROOT)/packages/libxslt/build/libxslt-1.1.33/libxslt/.libs/
     -L$(PYODIDE_ROOT)/packages/libxslt/build/libxslt-1.1.33/libexslt/.libs/
-    -L$(PYODIDE_ROOT)/packages/zlib/build/zlib-1.2.11/lib/
+    -L$(PYODIDE_ROOT)/packages/zlib/build/zlib-1.2.12/lib/
     -L$(PYODIDE_ROOT)/packages/libiconv/build/libiconv-1.16/lib/.libs/
 requirements:
   run:

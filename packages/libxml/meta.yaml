@@ -20,5 +20,5 @@ build:
         --disable-shared \
         --without-python \
         --with-iconv="$PYODIDE_ROOT/packages/libiconv/build/libiconv-1.16/lib/.libs" \
-        --with-zlib="$PYODIDE_ROOT/packages/zlib/build/zlib-1.2.11/"
+        --with-zlib="$PYODIDE_ROOT/packages/zlib/build/zlib-1.2.12/"
     emmake make -j ${PYODIDE_JOBS:-3}
