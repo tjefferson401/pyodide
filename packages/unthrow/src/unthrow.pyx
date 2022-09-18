@@ -21,7 +21,7 @@ class Resumer:
         self.running=0
         # TJ EDIT BEGIN
         self.local_vars=None
-        self.first_line_run=True
+        # self.first_line_run=True
         # TJ EDIT END
 
     def cancel(self):
@@ -31,6 +31,9 @@ class Resumer:
         set_resume(0)
 
     def run_once(self,mainfn,args):
+        # TJ ADDED TJPRINT
+        print("IN RUN_ONCE")
+        # TJ ADD END
         global interrupts_enabled
         if self.resume_stack:
             _do_resume(<PyObject*>self.resume_stack) # --> _do_resume
@@ -44,16 +47,9 @@ class Resumer:
         # we call into the first level where interrupts should be
         interrupt_with_block_initial_level=PyEval_GetFrame().f_iblock+1
         self.finished=True
-        # start interrupts if freq != 0
-        # TJ ADDED
-        if self.first_line_run and self.freq == 1:
-            set_interrupt_frequency(2)
-            self.first_line_run=False
-        else:
-            set_interrupt_frequency(self.freq)
-        # TJ END ADDED
-        # PREV CODE WAS:
-        # set_interrupt_frequency(self.freq)
+
+        set_interrupt_frequency(self.freq)
+
         try:
             mainfn(*args)
         except ResumableException as re:
@@ -221,6 +217,9 @@ ResumableExceptionClass=<PyObject*>PyErr_NewException("unthrow.ResumableExceptio
 ResumableException=<object>ResumableExceptionClass
 
 cdef _get_stack_pos(object code,int target,int before):
+    # TJ ADD TJPRINT
+    print("IN _GET_STACK_POS")
+    # TJ END
     if target<0: # start of fn, empty stack
         return 0
     cdef int no_jump
@@ -281,6 +280,9 @@ cdef object slow_locals(PyFrameObject* source_frame):
 # TJ END
 
 cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
+    # TJ ADD TJPRINT
+    print("IN save_frame")
+    # TJ END
     cdef PyObject *localPtr;
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)!=0:
         PyFrame_LocalsToFast(source_frame,0)
@@ -338,6 +340,9 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     return _SavedFrame(locals_and_stack=valuestack,code=code_obj,lasti=lasti,block_stack=blockstack,globals_if_different=globals_if_different,slow_locals=slow_locals)
 
 cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFrame):
+    # TJ ADD TJPRINT
+    print("IN restore_saved_frame")
+    # TJ END
     cdef PyObject* tmpObject
     cdef PyObject* borrowed_list_item;
     if (target_frame.f_code.co_flags & inspect.CO_OPTIMIZED)!=0:
@@ -426,6 +431,9 @@ cdef int interrupt_call_level=0
 cdef int interrupt_with_level=-1
 
 cdef void set_resume(int is_resuming):
+    # TJ ADDED TJPRINT
+    print("IN SET_RESUME")
+    # TJ ADD END
     global in_resume,resume_state,interrupt_frequency,_trace_obj
     resume_state=0
     in_resume=is_resuming
@@ -570,6 +578,9 @@ cdef _save_stack(object saved_frames,PyFrameObject* cFrame, object local_vars):
         cFrame=cFrame.f_back
 
 cdef void _do_resume(PyObject* c_saved_frames):
+    # TJ ADDED TJPRINT
+    print("IN _DO_RESUME")
+    # TJ ADD END
     # c_saved_frames = resumer.resume_stack
     # pulls in globals skip_stop, resume_list
     global __skip_stop,_resume_list
