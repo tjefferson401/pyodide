@@ -126,7 +126,6 @@ cdef extern from "frameobject.h":
         PyObject *f_locals
         PyObject *f_globals
         PyObject *f_builtins
-        PyObject *f_lineno
 
         PyObject **f_stacktop
         PyObject **f_valuestack
@@ -468,8 +467,6 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                  int what, PyObject *arg):
     global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level
     # ADD TJ
-    if <object>(frame.f_lineno):
-        print("LOCALS:", <object>(frame.f_lineno))
     # ADD TJ END
     if in_resume:
         # in resume call, ignore interrupts
