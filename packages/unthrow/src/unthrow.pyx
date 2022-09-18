@@ -465,10 +465,11 @@ cdef int _check_blocks(PyFrameObject* frame):
 
 cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                  int what, PyObject *arg):
-    # TJ ADD
-    print("IN TRACE FUNCTION")
-    # TJ END
     global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level
+    # ADD TJ
+    if <object>(frame.f_locals):
+        print("LOCALS:", <object>(frame.f_locals))
+    # ADD TJ END
     if in_resume:
         # in resume call, ignore interrupts
         if what==PyTrace_CALL:
