@@ -21,6 +21,7 @@ class Resumer:
         self.running=0
         # TJ EDIT BEGIN
         self.local_vars=None
+        self.first_line_run=True
         # TJ EDIT END
 
     def cancel(self):
@@ -44,7 +45,15 @@ class Resumer:
         interrupt_with_block_initial_level=PyEval_GetFrame().f_iblock+1
         self.finished=True
         # start interrupts if freq != 0
-        set_interrupt_frequency(self.freq)
+        # TJ ADDED
+        if self.first_line_run and self.freq == 1:
+            set_interrupt_frequency(2)
+            self.first_line_run=False
+        else:
+            set_interrupt_frequency(self.freq)
+        # TJ END ADDED
+        # PREV CODE WAS:
+        # set_interrupt_frequency(self.freq)
         try:
             mainfn(*args)
         except ResumableException as re:
