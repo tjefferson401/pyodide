@@ -465,6 +465,9 @@ cdef int _check_blocks(PyFrameObject* frame):
 
 cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                  int what, PyObject *arg):
+    # TJ ADD
+    print("IN TRACE FUNCTION")
+    # TJ END
     global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level
     if in_resume:
         # in resume call, ignore interrupts
@@ -561,7 +564,6 @@ cdef _save_stack(object saved_frames,PyFrameObject* cFrame, object local_vars):
         saved_frames.append(save_frame(cFrame,from_interrupt=from_interrupt))
         from_interrupt=False # only the top frame of an interrupt is different
         cFrame=cFrame.f_back
-    print(local_vars)
 
 cdef void _do_resume(PyObject* c_saved_frames):
     # c_saved_frames = resumer.resume_stack
