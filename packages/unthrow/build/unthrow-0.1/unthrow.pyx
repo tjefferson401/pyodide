@@ -256,7 +256,9 @@ cdef get_stack_pos_after(object code,int target):
 
 cdef get_line_start(object code,int target):
     lineStart=target
+    print(lineStart)
     for i in dis.get_instructions(code):
+        print(i)
         if i.offset>=target:
             break
         if i.starts_line:
@@ -271,6 +273,7 @@ cdef object slow_locals(PyFrameObject* source_frame):
     if source_frame.f_code:
         slow_locals=(<object>source_frame).f_locals.copy()
     return slow_locals
+
 # TJ END
 
 cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
