@@ -122,6 +122,9 @@ cdef extern from "frameobject.h":
         _frame * f_back
         PyCodeObject* f_code
         int f_lasti
+        # TJ ADD
+        int f_lineno
+        # TJ ADD END
         char f_executing
         PyObject *f_locals
         PyObject *f_globals
@@ -256,9 +259,7 @@ cdef get_stack_pos_after(object code,int target):
 
 cdef get_line_start(object code,int target):
     lineStart=target
-    print(lineStart)
     for i in dis.get_instructions(code):
-        print(i)
         if i.offset>=target:
             break
         if i.starts_line:
@@ -272,6 +273,7 @@ cdef object slow_locals(PyFrameObject* source_frame):
     slow_locals=None
     if source_frame.f_code:
         slow_locals=(<object>source_frame).f_locals.copy()
+        print((<object>source_frame).f_lineno)
     return slow_locals
 
 # TJ END
