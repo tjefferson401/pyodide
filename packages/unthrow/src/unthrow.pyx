@@ -269,12 +269,13 @@ cdef get_line_start(object code,int target):
     return lineStart
 
 # TJ BEGIN
-cdef object slow_locals(PyFrameObject* source_frame):
+cdef object step_info(PyFrameObject* source_frame):
     slow_locals=None
+    lineno = 0
     if source_frame.f_code:
         slow_locals=(<object>source_frame).f_locals.copy()
-        print((<object>source_frame).f_lineno)
-    return slow_locals
+        lineno = (<object>source_frame).f_lineno
+    return (slow_locals, lineno)
 
 # TJ END
 
@@ -563,7 +564,7 @@ cdef _save_stack(object saved_frames,PyFrameObject* cFrame, object local_vars):
     while cFrame!=NULL:
         # TODO: SAVE local_vars
         # TJ BEGIN
-        local_vars.append(slow_locals(cFrame))
+        local_vars.append(step_info(cFrame))
         # Tj END
         saved_frames.append(save_frame(cFrame,from_interrupt=from_interrupt))
         from_interrupt=False # only the top frame of an interrupt is different
