@@ -324,7 +324,10 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     # within the same interpreter - I don't think it is going to be
     # persistible
     if source_frame.f_back!=NULL and source_frame.f_back.f_globals != source_frame.f_globals:
-        globals_if_different=(<object>source_frame).f_globals.copy()
+        # globals_if_different=(<object>source_frame).f_globals.copy()
+        # TJ ADD CODE
+        globals_if_different=(<object>source_frame).f_globals.deepcopy()
+        # TJ END CODE
         # don't save the builtins dict
         if "__builtins__" in globals_if_different:
             del globals_if_different["__builtins__"]
