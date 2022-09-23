@@ -4967,6 +4967,7 @@ static PyObject *__pyx_f_7unthrow_get_line_start(PyObject *__pyx_v_code, int __p
 static PyObject *__pyx_f_7unthrow_step_info(PyFrameObject *__pyx_v_source_frame) {
   PyObject *__pyx_v_slow_locals = NULL;
   PyObject *__pyx_v_lineno = NULL;
+  CYTHON_UNUSED PyObject *__pyx_v_code_name = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -4993,7 +4994,7 @@ static PyObject *__pyx_f_7unthrow_step_info(PyFrameObject *__pyx_v_source_frame)
  *     slow_locals=None
  *     lineno = 0             # <<<<<<<<<<<<<<
  *     if source_frame.f_code:
- *         print((<object>source_frame).f_code.co_name)
+ *         slow_locals=(<object>source_frame).f_locals.copy()
  */
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_lineno = __pyx_int_0;
@@ -5002,8 +5003,8 @@ static PyObject *__pyx_f_7unthrow_step_info(PyFrameObject *__pyx_v_source_frame)
  *     slow_locals=None
  *     lineno = 0
  *     if source_frame.f_code:             # <<<<<<<<<<<<<<
- *         print((<object>source_frame).f_code.co_name)
  *         slow_locals=(<object>source_frame).f_locals.copy()
+ *         lineno = (<object>source_frame).f_lineno
  */
   __pyx_t_1 = (__pyx_v_source_frame->f_code != 0);
   if (__pyx_t_1) {
@@ -5011,30 +5012,13 @@ static PyObject *__pyx_f_7unthrow_step_info(PyFrameObject *__pyx_v_source_frame)
     /* "unthrow.pyx":276
  *     lineno = 0
  *     if source_frame.f_code:
- *         print((<object>source_frame).f_code.co_name)             # <<<<<<<<<<<<<<
- *         slow_locals=(<object>source_frame).f_locals.copy()
- *         lineno = (<object>source_frame).f_lineno
- */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_source_frame), __pyx_n_s_f_code); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 276, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_co_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 276, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 276, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-    /* "unthrow.pyx":277
- *     if source_frame.f_code:
- *         print((<object>source_frame).f_code.co_name)
  *         slow_locals=(<object>source_frame).f_locals.copy()             # <<<<<<<<<<<<<<
  *         lineno = (<object>source_frame).f_lineno
- *     return (slow_locals, lineno)
+ *         code_name = (<object>source_frame).f_code.co_name
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_source_frame), __pyx_n_s_f_locals); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_source_frame), __pyx_n_s_f_locals); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 276, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_copy); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_copy); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 276, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -5049,51 +5033,74 @@ static PyObject *__pyx_f_7unthrow_step_info(PyFrameObject *__pyx_v_source_frame)
     }
     __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 277, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 276, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF_SET(__pyx_v_slow_locals, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "unthrow.pyx":278
- *         print((<object>source_frame).f_code.co_name)
+    /* "unthrow.pyx":277
+ *     if source_frame.f_code:
  *         slow_locals=(<object>source_frame).f_locals.copy()
  *         lineno = (<object>source_frame).f_lineno             # <<<<<<<<<<<<<<
- *     return (slow_locals, lineno)
- * 
+ *         code_name = (<object>source_frame).f_code.co_name
+ *     return (slow_locals, lineno, (<object>source_frame).f_code.co_name)
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_source_frame), __pyx_n_s_f_lineno); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_source_frame), __pyx_n_s_f_lineno); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF_SET(__pyx_v_lineno, __pyx_t_2);
     __pyx_t_2 = 0;
+
+    /* "unthrow.pyx":278
+ *         slow_locals=(<object>source_frame).f_locals.copy()
+ *         lineno = (<object>source_frame).f_lineno
+ *         code_name = (<object>source_frame).f_code.co_name             # <<<<<<<<<<<<<<
+ *     return (slow_locals, lineno, (<object>source_frame).f_code.co_name)
+ * 
+ */
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_source_frame), __pyx_n_s_f_code); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_co_name); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_v_code_name = __pyx_t_4;
+    __pyx_t_4 = 0;
 
     /* "unthrow.pyx":275
  *     slow_locals=None
  *     lineno = 0
  *     if source_frame.f_code:             # <<<<<<<<<<<<<<
- *         print((<object>source_frame).f_code.co_name)
  *         slow_locals=(<object>source_frame).f_locals.copy()
+ *         lineno = (<object>source_frame).f_lineno
  */
   }
 
   /* "unthrow.pyx":279
- *         slow_locals=(<object>source_frame).f_locals.copy()
  *         lineno = (<object>source_frame).f_lineno
- *     return (slow_locals, lineno)             # <<<<<<<<<<<<<<
+ *         code_name = (<object>source_frame).f_code.co_name
+ *     return (slow_locals, lineno, (<object>source_frame).f_code.co_name)             # <<<<<<<<<<<<<<
  * 
  * # TJ END
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 279, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_source_frame), __pyx_n_s_f_code); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_co_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_slow_locals);
   __Pyx_GIVEREF(__pyx_v_slow_locals);
-  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_slow_locals);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_slow_locals);
   __Pyx_INCREF(__pyx_v_lineno);
   __Pyx_GIVEREF(__pyx_v_lineno);
-  PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_lineno);
-  __pyx_r = __pyx_t_2;
+  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_lineno);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_4, 2, __pyx_t_2);
   __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
   goto __pyx_L0;
 
   /* "unthrow.pyx":272
@@ -5114,6 +5121,7 @@ static PyObject *__pyx_f_7unthrow_step_info(PyFrameObject *__pyx_v_source_frame)
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_slow_locals);
   __Pyx_XDECREF(__pyx_v_lineno);
+  __Pyx_XDECREF(__pyx_v_code_name);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
