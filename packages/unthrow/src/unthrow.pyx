@@ -273,6 +273,7 @@ cdef object step_info(PyFrameObject* source_frame):
     slow_locals=None
     lineno = 0
     if source_frame.f_code:
+        print((<object>source_frame).f_code.co_name)
         slow_locals=(<object>source_frame).f_locals.copy()
         lineno = (<object>source_frame).f_lineno
     return (slow_locals, lineno)
