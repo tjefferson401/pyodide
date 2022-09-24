@@ -625,11 +625,17 @@ cdef void _resume_frame(PyObject* c_saved_frames,PyFrameObject* c_frame):
 def stop(msg):
     global __skip_stop,interrupts_enabled
     if __skip_stop:
+        # TJ ADDED
+        print("Stop Skipped")
+        # TJ ADD END
         #print("RESUMING - enable interrupts")
         __skip_stop=False
         interrupts_enabled=1
     else:
         __skip_stop=True
+        # TJ ADDED
+        print("Stop NOT Skipped")
+        # TJ NOT ADDED
         # disable interrupts until we return from this
         interrupts_enabled=0
         #print("STOPPING NOW - disabled interrupts",<object>msg)
