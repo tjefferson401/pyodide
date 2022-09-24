@@ -8669,14 +8669,14 @@ static PyObject *__pyx_pf_7unthrow_3stop(CYTHON_UNUSED PyObject *__pyx_self, PyO
   __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_skip_ok); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 627, __pyx_L1_error)
   __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
-  if (likely(__pyx_t_1)) {
+  if (__pyx_t_1) {
 
     /* "unthrow.pyx":632
  *         # TJ ADD END
  *         #print("RESUMING - enable interrupts")
  *         __skip_stop=False             # <<<<<<<<<<<<<<
  *         interrupts_enabled=1
- *     else:
+ *         #TJ ADD ELIF
  */
     __pyx_v_7unthrow___skip_stop = 0;
 
@@ -8684,8 +8684,8 @@ static PyObject *__pyx_pf_7unthrow_3stop(CYTHON_UNUSED PyObject *__pyx_self, PyO
  *         #print("RESUMING - enable interrupts")
  *         __skip_stop=False
  *         interrupts_enabled=1             # <<<<<<<<<<<<<<
- *     else:
- *         __skip_stop=True
+ *         #TJ ADD ELIF
+ *     elif not skip_ok:
  */
     __pyx_v_7unthrow_interrupts_enabled = 1;
 
@@ -8701,6 +8701,84 @@ static PyObject *__pyx_pf_7unthrow_3stop(CYTHON_UNUSED PyObject *__pyx_self, PyO
 
   /* "unthrow.pyx":635
  *         interrupts_enabled=1
+ *         #TJ ADD ELIF
+ *     elif not skip_ok:             # <<<<<<<<<<<<<<
+ *         interrupts_enabled=1
+ *         __skip_stop=False
+ */
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_skip_ok); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 635, __pyx_L1_error)
+  __pyx_t_2 = ((!__pyx_t_1) != 0);
+  if (unlikely(__pyx_t_2)) {
+
+    /* "unthrow.pyx":636
+ *         #TJ ADD ELIF
+ *     elif not skip_ok:
+ *         interrupts_enabled=1             # <<<<<<<<<<<<<<
+ *         __skip_stop=False
+ *         rex=make_resumable_exception(<PyObject*>msg,NULL)
+ */
+    __pyx_v_7unthrow_interrupts_enabled = 1;
+
+    /* "unthrow.pyx":637
+ *     elif not skip_ok:
+ *         interrupts_enabled=1
+ *         __skip_stop=False             # <<<<<<<<<<<<<<
+ *         rex=make_resumable_exception(<PyObject*>msg,NULL)
+ *         objRex=<object>rex
+ */
+    __pyx_v_7unthrow___skip_stop = 0;
+
+    /* "unthrow.pyx":638
+ *         interrupts_enabled=1
+ *         __skip_stop=False
+ *         rex=make_resumable_exception(<PyObject*>msg,NULL)             # <<<<<<<<<<<<<<
+ *         objRex=<object>rex
+ *         Py_XDECREF(rex)
+ */
+    __pyx_v_rex = __pyx_f_7unthrow_make_resumable_exception(((PyObject *)__pyx_v_msg), NULL);
+
+    /* "unthrow.pyx":639
+ *         __skip_stop=False
+ *         rex=make_resumable_exception(<PyObject*>msg,NULL)
+ *         objRex=<object>rex             # <<<<<<<<<<<<<<
+ *         Py_XDECREF(rex)
+ *         raise objRex
+ */
+    __pyx_t_3 = ((PyObject *)__pyx_v_rex);
+    __Pyx_INCREF(__pyx_t_3);
+    __pyx_v_objRex = __pyx_t_3;
+    __pyx_t_3 = 0;
+
+    /* "unthrow.pyx":640
+ *         rex=make_resumable_exception(<PyObject*>msg,NULL)
+ *         objRex=<object>rex
+ *         Py_XDECREF(rex)             # <<<<<<<<<<<<<<
+ *         raise objRex
+ *         # END OF TJ ADD
+ */
+    Py_XDECREF(__pyx_v_rex);
+
+    /* "unthrow.pyx":641
+ *         objRex=<object>rex
+ *         Py_XDECREF(rex)
+ *         raise objRex             # <<<<<<<<<<<<<<
+ *         # END OF TJ ADD
+ *     else:
+ */
+    __Pyx_Raise(__pyx_v_objRex, 0, 0, 0);
+    __PYX_ERR(0, 641, __pyx_L1_error)
+
+    /* "unthrow.pyx":635
+ *         interrupts_enabled=1
+ *         #TJ ADD ELIF
+ *     elif not skip_ok:             # <<<<<<<<<<<<<<
+ *         interrupts_enabled=1
+ *         __skip_stop=False
+ */
+  }
+
+  /* "unthrow.pyx":644
+ *         # END OF TJ ADD
  *     else:
  *         __skip_stop=True             # <<<<<<<<<<<<<<
  *         # TJ ADDED
@@ -8709,7 +8787,7 @@ static PyObject *__pyx_pf_7unthrow_3stop(CYTHON_UNUSED PyObject *__pyx_self, PyO
   /*else*/ {
     __pyx_v_7unthrow___skip_stop = 1;
 
-    /* "unthrow.pyx":640
+    /* "unthrow.pyx":649
  *         # TJ NOT ADDED
  *         # disable interrupts until we return from this
  *         interrupts_enabled=0             # <<<<<<<<<<<<<<
@@ -8718,7 +8796,7 @@ static PyObject *__pyx_pf_7unthrow_3stop(CYTHON_UNUSED PyObject *__pyx_self, PyO
  */
     __pyx_v_7unthrow_interrupts_enabled = 0;
 
-    /* "unthrow.pyx":642
+    /* "unthrow.pyx":651
  *         interrupts_enabled=0
  *         #print("STOPPING NOW - disabled interrupts",<object>msg)
  *         rex=make_resumable_exception(<PyObject*>msg,NULL)             # <<<<<<<<<<<<<<
@@ -8727,7 +8805,7 @@ static PyObject *__pyx_pf_7unthrow_3stop(CYTHON_UNUSED PyObject *__pyx_self, PyO
  */
     __pyx_v_rex = __pyx_f_7unthrow_make_resumable_exception(((PyObject *)__pyx_v_msg), NULL);
 
-    /* "unthrow.pyx":643
+    /* "unthrow.pyx":652
  *         #print("STOPPING NOW - disabled interrupts",<object>msg)
  *         rex=make_resumable_exception(<PyObject*>msg,NULL)
  *         objRex=<object>rex             # <<<<<<<<<<<<<<
@@ -8739,7 +8817,7 @@ static PyObject *__pyx_pf_7unthrow_3stop(CYTHON_UNUSED PyObject *__pyx_self, PyO
     __pyx_v_objRex = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "unthrow.pyx":644
+    /* "unthrow.pyx":653
  *         rex=make_resumable_exception(<PyObject*>msg,NULL)
  *         objRex=<object>rex
  *         Py_XDECREF(rex)             # <<<<<<<<<<<<<<
@@ -8748,7 +8826,7 @@ static PyObject *__pyx_pf_7unthrow_3stop(CYTHON_UNUSED PyObject *__pyx_self, PyO
  */
     Py_XDECREF(__pyx_v_rex);
 
-    /* "unthrow.pyx":645
+    /* "unthrow.pyx":654
  *         objRex=<object>rex
  *         Py_XDECREF(rex)
  *         raise objRex             # <<<<<<<<<<<<<<
@@ -8756,7 +8834,7 @@ static PyObject *__pyx_pf_7unthrow_3stop(CYTHON_UNUSED PyObject *__pyx_self, PyO
  * cdef PyObject* _resume_list=NULL
  */
     __Pyx_Raise(__pyx_v_objRex, 0, 0, 0);
-    __PYX_ERR(0, 645, __pyx_L1_error)
+    __PYX_ERR(0, 654, __pyx_L1_error)
   }
   __pyx_L3:;
 
@@ -11026,7 +11104,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_stop, __pyx_t_1) < 0) __PYX_ERR(0, 625, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "unthrow.pyx":647
+  /* "unthrow.pyx":656
  *         raise objRex
  * 
  * cdef PyObject* _resume_list=NULL             # <<<<<<<<<<<<<<

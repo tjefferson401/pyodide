@@ -631,6 +631,15 @@ def stop(msg, skip_ok=True):
         #print("RESUMING - enable interrupts")
         __skip_stop=False
         interrupts_enabled=1
+        #TJ ADD ELIF
+    elif not skip_ok:
+        interrupts_enabled=1
+        __skip_stop=False
+        rex=make_resumable_exception(<PyObject*>msg,NULL)
+        objRex=<object>rex
+        Py_XDECREF(rex)
+        raise objRex
+        # END OF TJ ADD
     else:
         __skip_stop=True
         # TJ ADDED
