@@ -624,7 +624,7 @@ cdef void _resume_frame(PyObject* c_saved_frames,PyFrameObject* c_frame):
 # this is a c function so it doesn't get traced into
 def stop(msg, skip_ok=True):
     global __skip_stop,interrupts_enabled
-    if __skip_stop && skip_ok:
+    if __skip_stop and skip_ok:
         # TJ ADDED
         # print("Stop Skipped")
         # TJ ADD END
