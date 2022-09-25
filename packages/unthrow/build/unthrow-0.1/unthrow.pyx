@@ -71,11 +71,6 @@ class Resumer:
         if self.running:
             set_interrupt_frequency(self.freq)
 
-    def get_resumer_stack(self):
-        return self.resume_stack
-
-    def get_resumer_stack(self):
-        return self.resume_params
 
 
 # like a named tuple but mutable (so that we can zero things to avoid leaks)
@@ -622,29 +617,14 @@ cdef void _resume_frame(PyObject* c_saved_frames,PyFrameObject* c_frame):
                 interrupts_enabled=1
 
 # this is a c function so it doesn't get traced into
-def stop(msg, skip_ok=True):
+def stop(msg):
     global __skip_stop,interrupts_enabled
-    if __skip_stop and skip_ok:
-        # TJ ADDED
-        # print("Stop Skipped")
-        # TJ ADD END
+    if __skip_stop:
         #print("RESUMING - enable interrupts")
         __skip_stop=False
         interrupts_enabled=1
-        #TJ ADD ELIF
-    elif not skip_ok:
-        interrupts_enabled=1
-        __skip_stop=False
-        rex=make_resumable_exception(<PyObject*>msg,NULL)
-        objRex=<object>rex
-        Py_XDECREF(rex)
-        raise objRex
-        # END OF TJ ADD
     else:
         __skip_stop=True
-        # TJ ADDED
-        # print("Stop NOT Skipped")
-        # TJ NOT ADDED
         # disable interrupts until we return from this
         interrupts_enabled=0
         #print("STOPPING NOW - disabled interrupts",<object>msg)
