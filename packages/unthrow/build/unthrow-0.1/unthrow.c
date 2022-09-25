@@ -1935,6 +1935,7 @@ static const char __pyx_k_setattr[] = "__setattr__";
 static const char __pyx_k_unthrow[] = "unthrow";
 static const char __pyx_k_KeyError[] = "KeyError";
 static const char __pyx_k_builtins[] = "__builtins__";
+static const char __pyx_k_deepcopy[] = "deepcopy";
 static const char __pyx_k_f_lineno[] = "f_lineno";
 static const char __pyx_k_f_locals[] = "f_locals";
 static const char __pyx_k_finished[] = "finished";
@@ -2030,6 +2031,7 @@ static PyObject *__pyx_n_s_co_name;
 static PyObject *__pyx_n_s_code;
 static PyObject *__pyx_n_s_collections;
 static PyObject *__pyx_n_s_copy;
+static PyObject *__pyx_n_s_deepcopy;
 static PyObject *__pyx_n_s_dict;
 static PyObject *__pyx_n_s_dictionary;
 static PyObject *__pyx_n_u_dictionary;
@@ -5511,7 +5513,7 @@ static PyObject *__pyx_f_7unthrow_save_frame(PyFrameObject *__pyx_v_source_frame
  *     # persistible
  *     if source_frame.f_back!=NULL and source_frame.f_back.f_globals != source_frame.f_globals:             # <<<<<<<<<<<<<<
  *         # ORIGINAL CODE BELOW:
- *         globals_if_different=(<object>source_frame).f_globals.copy()
+ *         # globals_if_different=(<object>source_frame).f_globals.copy()
  */
   __pyx_t_11 = ((__pyx_v_source_frame->f_back != NULL) != 0);
   if (__pyx_t_11) {
@@ -5524,31 +5526,34 @@ static PyObject *__pyx_f_7unthrow_save_frame(PyFrameObject *__pyx_v_source_frame
   __pyx_L12_bool_binop_done:;
   if (__pyx_t_4) {
 
-    /* "unthrow.pyx":325
- *     if source_frame.f_back!=NULL and source_frame.f_back.f_globals != source_frame.f_globals:
- *         # ORIGINAL CODE BELOW:
- *         globals_if_different=(<object>source_frame).f_globals.copy()             # <<<<<<<<<<<<<<
- *         # TJ ADD CODE ADDED Thu Sep 22 10:37 PM
- *         # THIS DID NOT WORK. "Error: Internal error: Argument 'undefined' to hiwire.get_value is falsy (but error indicator is not set)."
+    /* "unthrow.pyx":330
+ *         # globals_if_different=(<object>source_frame).f_globals.deepcopy()
+ *         # SECOND ATTEMPT
+ *         globals_if_different=copy.deepcopy((<object>source_frame).f_globals)             # <<<<<<<<<<<<<<
+ *         # TJ END CODE
+ *         # don't save the builtins dict
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_source_frame), __pyx_n_s_f_globals); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_copy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_deepcopy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
-      if (likely(__pyx_t_2)) {
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_source_frame), __pyx_n_s_f_globals); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 330, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_9 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_9)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-        __Pyx_INCREF(__pyx_t_2);
+        __Pyx_INCREF(__pyx_t_9);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_1, function);
       }
     }
-    __pyx_t_3 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __pyx_t_3 = (__pyx_t_9) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_9, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2);
+    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF_SET(__pyx_v_globals_if_different, __pyx_t_3);
@@ -5588,7 +5593,7 @@ static PyObject *__pyx_f_7unthrow_save_frame(PyFrameObject *__pyx_v_source_frame
  *     # persistible
  *     if source_frame.f_back!=NULL and source_frame.f_back.f_globals != source_frame.f_globals:             # <<<<<<<<<<<<<<
  *         # ORIGINAL CODE BELOW:
- *         globals_if_different=(<object>source_frame).f_globals.copy()
+ *         # globals_if_different=(<object>source_frame).f_globals.copy()
  */
   }
 
@@ -9827,6 +9832,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_code, __pyx_k_code, sizeof(__pyx_k_code), 0, 0, 1, 1},
   {&__pyx_n_s_collections, __pyx_k_collections, sizeof(__pyx_k_collections), 0, 0, 1, 1},
   {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
+  {&__pyx_n_s_deepcopy, __pyx_k_deepcopy, sizeof(__pyx_k_deepcopy), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
   {&__pyx_n_s_dictionary, __pyx_k_dictionary, sizeof(__pyx_k_dictionary), 0, 0, 1, 1},
   {&__pyx_n_u_dictionary, __pyx_k_dictionary, sizeof(__pyx_k_dictionary), 0, 1, 0, 1},
