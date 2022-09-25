@@ -7,7 +7,7 @@ import array
 import collections
 import sys,inspect,dis
 # TJ IMPORTS
-import copy
+# import copy
 # END TJ IMPORTS
 
 traceall=False
@@ -322,12 +322,14 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     # persistible
     if source_frame.f_back!=NULL and source_frame.f_back.f_globals != source_frame.f_globals:
         # ORIGINAL CODE BELOW:
-        # globals_if_different=(<object>source_frame).f_globals.copy()
+        print((<object>source_frame).f_globals)
+        globals_if_different=(<object>source_frame).f_globals.copy()
+        print(globals_if_different)
         # TJ ADD CODE ADDED Thu Sep 22 10:37 PM
         # THIS DID NOT WORK. "Error: Internal error: Argument 'undefined' to hiwire.get_value is falsy (but error indicator is not set)."
         # globals_if_different=(<object>source_frame).f_globals.deepcopy()
         # SECOND ATTEMPT
-        globals_if_different=copy.deepcopy((<object>source_frame).f_globals)
+        # deepcopy((<object>source_frame).f_globals)
         # TJ END CODE
         # don't save the builtins dict
         if "__builtins__" in globals_if_different:
