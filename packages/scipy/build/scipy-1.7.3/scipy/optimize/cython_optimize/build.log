@@ -1,0 +1,6 @@
+["gcc", "-print-multiarch"]
+["c++", "-print-file-name=libomp.so"]
+["c++", "-print-file-name=libgomp.so"]
+["c++", "-print-file-name=libiomp5.so"]
+["gcc", "-Wl,-t", "-o", "/tmp/tmp4jnced2w", "-lomp"]
+["ld", "-t", "-o", "/dev/null", "-lomp"]
