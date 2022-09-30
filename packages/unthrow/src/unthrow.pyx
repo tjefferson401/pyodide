@@ -7,7 +7,8 @@ import array
 import collections
 import sys,inspect,dis
 # TJ IMPORTS
-import json
+# import json
+import ast
 # import copy
 # END TJ IMPORTS
 
@@ -326,7 +327,7 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
         # globals_if_different=(<object>source_frame).f_globals.copy()
         # TJ ADD CODE ADDED Thu Sep 22 10:37 PM
         # THIS DID NOT WORK. "Error: Internal error: Argument 'undefined' to hiwire.get_value is falsy (but error indicator is not set)."
-        globals_if_different= json.loads(json.dumps((<object>source_frame).f_globals))
+        globals_if_different= ast.parse(ast.dump((<object>source_frame).f_globals))
         # SECOND ATTEMPT
         # deepcopy((<object>source_frame).f_globals)
         # TJ END CODE
