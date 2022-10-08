@@ -325,6 +325,7 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     if source_frame.f_back!=NULL and source_frame.f_back.f_globals != source_frame.f_globals:
         # ORIGINAL CODE BELOW:
         globals_if_different=(<object>source_frame).f_globals.copy()
+        print(type((<object>source_frame).f_globals))
         # TJ ADD CODE ADDED Thu Sep 22 10:37 PM
         # sys.setrecursionlimit(5000)
         # globals_if_different=copy.deepcopy((<object>source_frame).f_globals)
