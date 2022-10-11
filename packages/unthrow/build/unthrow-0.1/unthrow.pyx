@@ -654,9 +654,11 @@ cdef PyObject* _resume_list=NULL
 
 
 def iter_deepcopy(obj):
+    print(obj)
     root = dict()
     stack = [(obj, root)]
     while stack:
+        print(len(stack))
         (original, deep), *stack = stack
         if isinstance(original, dict):
             for key in original:

@@ -8615,8 +8615,8 @@ static PyObject *__pyx_pf_7unthrow_3stop(CYTHON_UNUSED PyObject *__pyx_self, PyO
  * 
  * 
  * def iter_deepcopy(obj):             # <<<<<<<<<<<<<<
+ *     print(obj)
  *     root = dict()
- *     stack = [(obj, root)]
  */
 
 /* Python wrapper */
@@ -8646,12 +8646,12 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   int __pyx_t_3;
-  PyObject *(*__pyx_t_4)(PyObject *);
-  PyObject *__pyx_t_5 = NULL;
+  Py_ssize_t __pyx_t_4;
+  PyObject *(*__pyx_t_5)(PyObject *);
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
-  int __pyx_t_8;
-  Py_ssize_t __pyx_t_9;
+  PyObject *__pyx_t_8 = NULL;
+  int __pyx_t_9;
   PyObject *(*__pyx_t_10)(PyObject *);
   int __pyx_t_11;
   int __pyx_lineno = 0;
@@ -8662,23 +8662,34 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
   /* "unthrow.pyx":657
  * 
  * def iter_deepcopy(obj):
+ *     print(obj)             # <<<<<<<<<<<<<<
+ *     root = dict()
+ *     stack = [(obj, root)]
+ */
+  __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_obj); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 657, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "unthrow.pyx":658
+ * def iter_deepcopy(obj):
+ *     print(obj)
  *     root = dict()             # <<<<<<<<<<<<<<
  *     stack = [(obj, root)]
  *     while stack:
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 657, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 658, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_root = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "unthrow.pyx":658
- * def iter_deepcopy(obj):
+  /* "unthrow.pyx":659
+ *     print(obj)
  *     root = dict()
  *     stack = [(obj, root)]             # <<<<<<<<<<<<<<
  *     while stack:
- *         (original, deep), *stack = stack
+ *         print(len(stack))
  */
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 658, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 659, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_obj);
   __Pyx_GIVEREF(__pyx_v_obj);
@@ -8686,7 +8697,7 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
   __Pyx_INCREF(__pyx_v_root);
   __Pyx_GIVEREF(__pyx_v_root);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_root);
-  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 658, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 659, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
@@ -8694,111 +8705,126 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
   __pyx_v_stack = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "unthrow.pyx":659
+  /* "unthrow.pyx":660
  *     root = dict()
  *     stack = [(obj, root)]
  *     while stack:             # <<<<<<<<<<<<<<
+ *         print(len(stack))
+ *         (original, deep), *stack = stack
+ */
+  while (1) {
+    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_stack); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 660, __pyx_L1_error)
+    if (!__pyx_t_3) break;
+
+    /* "unthrow.pyx":661
+ *     stack = [(obj, root)]
+ *     while stack:
+ *         print(len(stack))             # <<<<<<<<<<<<<<
  *         (original, deep), *stack = stack
  *         if isinstance(original, dict):
  */
-  while (1) {
-    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_stack); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 659, __pyx_L1_error)
-    if (!__pyx_t_3) break;
+    __pyx_t_4 = PyObject_Length(__pyx_v_stack); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 661, __pyx_L1_error)
+    __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 661, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 661, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "unthrow.pyx":660
- *     stack = [(obj, root)]
+    /* "unthrow.pyx":662
  *     while stack:
+ *         print(len(stack))
  *         (original, deep), *stack = stack             # <<<<<<<<<<<<<<
  *         if isinstance(original, dict):
  *             for key in original:
  */
     {
       Py_ssize_t index = -1;
-      PyObject** temps[2] = {&__pyx_t_2};
-      __pyx_t_1 = PyObject_GetIter(__pyx_v_stack); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 660, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_4 = Py_TYPE(__pyx_t_1)->tp_iternext;
+      PyObject** temps[2] = {&__pyx_t_1};
+      __pyx_t_2 = PyObject_GetIter(__pyx_v_stack); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 662, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext;
       for (index=0; index < 1; index++) {
-        PyObject* item = __pyx_t_4(__pyx_t_1); if (unlikely(!item)) goto __pyx_L5_unpacking_failed;
+        PyObject* item = __pyx_t_5(__pyx_t_2); if (unlikely(!item)) goto __pyx_L5_unpacking_failed;
         __Pyx_GOTREF(item);
         *(temps[index]) = item;
       }
       goto __pyx_L6_unpacking_done;
       __pyx_L5_unpacking_failed:;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_4 = NULL;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_5 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 660, __pyx_L1_error)
+      __PYX_ERR(0, 662, __pyx_L1_error)
       __pyx_L6_unpacking_done:;
     }
-    __pyx_t_5 = PySequence_List(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 660, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
-      PyObject* sequence = __pyx_t_2;
+    __pyx_t_6 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 662, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
+      PyObject* sequence = __pyx_t_1;
       Py_ssize_t size = __Pyx_PySequence_SIZE(sequence);
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 660, __pyx_L1_error)
+        __PYX_ERR(0, 662, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
-        __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
-        __pyx_t_6 = PyTuple_GET_ITEM(sequence, 1); 
+        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0); 
+        __pyx_t_7 = PyTuple_GET_ITEM(sequence, 1); 
       } else {
-        __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
-        __pyx_t_6 = PyList_GET_ITEM(sequence, 1); 
+        __pyx_t_2 = PyList_GET_ITEM(sequence, 0); 
+        __pyx_t_7 = PyList_GET_ITEM(sequence, 1); 
       }
-      __Pyx_INCREF(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_6);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_7);
       #else
-      __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 660, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 660, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 662, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_7 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 662, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_7);
       #endif
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 660, __pyx_L1_error)
+      __pyx_t_8 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 662, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_5 = Py_TYPE(__pyx_t_8)->tp_iternext;
+      index = 0; __pyx_t_2 = __pyx_t_5(__pyx_t_8); if (unlikely(!__pyx_t_2)) goto __pyx_L7_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_2);
+      index = 1; __pyx_t_7 = __pyx_t_5(__pyx_t_8); if (unlikely(!__pyx_t_7)) goto __pyx_L7_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_4 = Py_TYPE(__pyx_t_7)->tp_iternext;
-      index = 0; __pyx_t_1 = __pyx_t_4(__pyx_t_7); if (unlikely(!__pyx_t_1)) goto __pyx_L7_unpacking_failed;
-      __Pyx_GOTREF(__pyx_t_1);
-      index = 1; __pyx_t_6 = __pyx_t_4(__pyx_t_7); if (unlikely(!__pyx_t_6)) goto __pyx_L7_unpacking_failed;
-      __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_4(__pyx_t_7), 2) < 0) __PYX_ERR(0, 660, __pyx_L1_error)
-      __pyx_t_4 = NULL;
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_8), 2) < 0) __PYX_ERR(0, 662, __pyx_L1_error)
+      __pyx_t_5 = NULL;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       goto __pyx_L8_unpacking_done;
       __pyx_L7_unpacking_failed:;
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_4 = NULL;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_5 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 660, __pyx_L1_error)
+      __PYX_ERR(0, 662, __pyx_L1_error)
       __pyx_L8_unpacking_done:;
     }
-    __Pyx_XDECREF_SET(__pyx_v_original, __pyx_t_1);
-    __pyx_t_1 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_deep, __pyx_t_6);
+    __Pyx_XDECREF_SET(__pyx_v_original, __pyx_t_2);
+    __pyx_t_2 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_deep, __pyx_t_7);
+    __pyx_t_7 = 0;
+    __Pyx_DECREF_SET(__pyx_v_stack, ((PyObject*)__pyx_t_6));
     __pyx_t_6 = 0;
-    __Pyx_DECREF_SET(__pyx_v_stack, ((PyObject*)__pyx_t_5));
-    __pyx_t_5 = 0;
 
-    /* "unthrow.pyx":661
- *     while stack:
+    /* "unthrow.pyx":663
+ *         print(len(stack))
  *         (original, deep), *stack = stack
  *         if isinstance(original, dict):             # <<<<<<<<<<<<<<
  *             for key in original:
  *                 i = original[key]
  */
     __pyx_t_3 = PyDict_Check(__pyx_v_original); 
-    __pyx_t_8 = (__pyx_t_3 != 0);
-    if (__pyx_t_8) {
+    __pyx_t_9 = (__pyx_t_3 != 0);
+    if (__pyx_t_9) {
 
-      /* "unthrow.pyx":662
+      /* "unthrow.pyx":664
  *         (original, deep), *stack = stack
  *         if isinstance(original, dict):
  *             for key in original:             # <<<<<<<<<<<<<<
@@ -8806,112 +8832,112 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
  *                 if isinstance(i, list):
  */
       if (likely(PyList_CheckExact(__pyx_v_original)) || PyTuple_CheckExact(__pyx_v_original)) {
-        __pyx_t_5 = __pyx_v_original; __Pyx_INCREF(__pyx_t_5); __pyx_t_9 = 0;
+        __pyx_t_6 = __pyx_v_original; __Pyx_INCREF(__pyx_t_6); __pyx_t_4 = 0;
         __pyx_t_10 = NULL;
       } else {
-        __pyx_t_9 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_v_original); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 662, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_10 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 662, __pyx_L1_error)
+        __pyx_t_4 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_v_original); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 664, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_10 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 664, __pyx_L1_error)
       }
       for (;;) {
         if (likely(!__pyx_t_10)) {
-          if (likely(PyList_CheckExact(__pyx_t_5))) {
-            if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_5)) break;
+          if (likely(PyList_CheckExact(__pyx_t_6))) {
+            if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_6)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_2 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_2); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 662, __pyx_L1_error)
+            __pyx_t_1 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 664, __pyx_L1_error)
             #else
-            __pyx_t_2 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 662, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_1 = PySequence_ITEM(__pyx_t_6, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 664, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_1);
             #endif
           } else {
-            if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
+            if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_2); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 662, __pyx_L1_error)
+            __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 664, __pyx_L1_error)
             #else
-            __pyx_t_2 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 662, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_1 = PySequence_ITEM(__pyx_t_6, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 664, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_1);
             #endif
           }
         } else {
-          __pyx_t_2 = __pyx_t_10(__pyx_t_5);
-          if (unlikely(!__pyx_t_2)) {
+          __pyx_t_1 = __pyx_t_10(__pyx_t_6);
+          if (unlikely(!__pyx_t_1)) {
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 662, __pyx_L1_error)
+              else __PYX_ERR(0, 664, __pyx_L1_error)
             }
             break;
           }
-          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_GOTREF(__pyx_t_1);
         }
-        __Pyx_XDECREF_SET(__pyx_v_key, __pyx_t_2);
-        __pyx_t_2 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_key, __pyx_t_1);
+        __pyx_t_1 = 0;
 
-        /* "unthrow.pyx":663
+        /* "unthrow.pyx":665
  *         if isinstance(original, dict):
  *             for key in original:
  *                 i = original[key]             # <<<<<<<<<<<<<<
  *                 if isinstance(i, list):
  *                     p = (i, [])
  */
-        __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_original, __pyx_v_key); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 663, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_2);
-        __pyx_t_2 = 0;
+        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_original, __pyx_v_key); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 665, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
+        __pyx_t_1 = 0;
 
-        /* "unthrow.pyx":664
+        /* "unthrow.pyx":666
  *             for key in original:
  *                 i = original[key]
  *                 if isinstance(i, list):             # <<<<<<<<<<<<<<
  *                     p = (i, [])
  *                     deep[key] = p[1]
  */
-        __pyx_t_8 = PyList_Check(__pyx_v_i); 
-        __pyx_t_3 = (__pyx_t_8 != 0);
+        __pyx_t_9 = PyList_Check(__pyx_v_i); 
+        __pyx_t_3 = (__pyx_t_9 != 0);
         if (__pyx_t_3) {
 
-          /* "unthrow.pyx":665
+          /* "unthrow.pyx":667
  *                 i = original[key]
  *                 if isinstance(i, list):
  *                     p = (i, [])             # <<<<<<<<<<<<<<
  *                     deep[key] = p[1]
  *                     stack.append(p)
  */
-          __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 665, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 665, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_6);
+          __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 667, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 667, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_7);
           __Pyx_INCREF(__pyx_v_i);
           __Pyx_GIVEREF(__pyx_v_i);
-          PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_i);
-          __Pyx_GIVEREF(__pyx_t_2);
-          PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_2);
-          __pyx_t_2 = 0;
-          __Pyx_XDECREF_SET(__pyx_v_p, ((PyObject*)__pyx_t_6));
-          __pyx_t_6 = 0;
+          PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_i);
+          __Pyx_GIVEREF(__pyx_t_1);
+          PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_1);
+          __pyx_t_1 = 0;
+          __Pyx_XDECREF_SET(__pyx_v_p, ((PyObject*)__pyx_t_7));
+          __pyx_t_7 = 0;
 
-          /* "unthrow.pyx":666
+          /* "unthrow.pyx":668
  *                 if isinstance(i, list):
  *                     p = (i, [])
  *                     deep[key] = p[1]             # <<<<<<<<<<<<<<
  *                     stack.append(p)
  *                 elif isinstance(i, dict):
  */
-          __pyx_t_6 = __Pyx_GetItemInt_Tuple(__pyx_v_p, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 666, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_6);
-          if (unlikely(PyObject_SetItem(__pyx_v_deep, __pyx_v_key, __pyx_t_6) < 0)) __PYX_ERR(0, 666, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __pyx_t_7 = __Pyx_GetItemInt_Tuple(__pyx_v_p, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 668, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_7);
+          if (unlikely(PyObject_SetItem(__pyx_v_deep, __pyx_v_key, __pyx_t_7) < 0)) __PYX_ERR(0, 668, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "unthrow.pyx":667
+          /* "unthrow.pyx":669
  *                     p = (i, [])
  *                     deep[key] = p[1]
  *                     stack.append(p)             # <<<<<<<<<<<<<<
  *                 elif isinstance(i, dict):
  *                     p = (i, dict())
  */
-          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_stack, __pyx_v_p); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 667, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_stack, __pyx_v_p); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 669, __pyx_L1_error)
 
-          /* "unthrow.pyx":664
+          /* "unthrow.pyx":666
  *             for key in original:
  *                 i = original[key]
  *                 if isinstance(i, list):             # <<<<<<<<<<<<<<
@@ -8921,7 +8947,7 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
           goto __pyx_L12;
         }
 
-        /* "unthrow.pyx":668
+        /* "unthrow.pyx":670
  *                     deep[key] = p[1]
  *                     stack.append(p)
  *                 elif isinstance(i, dict):             # <<<<<<<<<<<<<<
@@ -8929,51 +8955,51 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
  *                     deep[key] = p[1]
  */
         __pyx_t_3 = PyDict_Check(__pyx_v_i); 
-        __pyx_t_8 = (__pyx_t_3 != 0);
-        if (__pyx_t_8) {
+        __pyx_t_9 = (__pyx_t_3 != 0);
+        if (__pyx_t_9) {
 
-          /* "unthrow.pyx":669
+          /* "unthrow.pyx":671
  *                     stack.append(p)
  *                 elif isinstance(i, dict):
  *                     p = (i, dict())             # <<<<<<<<<<<<<<
  *                     deep[key] = p[1]
  *                     stack.append(p)
  */
-          __pyx_t_6 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 669, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 669, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
+          __pyx_t_7 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 671, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_7);
+          __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 671, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
           __Pyx_INCREF(__pyx_v_i);
           __Pyx_GIVEREF(__pyx_v_i);
-          PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_i);
-          __Pyx_GIVEREF(__pyx_t_6);
-          PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_6);
-          __pyx_t_6 = 0;
-          __Pyx_XDECREF_SET(__pyx_v_p, ((PyObject*)__pyx_t_2));
-          __pyx_t_2 = 0;
+          PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_i);
+          __Pyx_GIVEREF(__pyx_t_7);
+          PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_7);
+          __pyx_t_7 = 0;
+          __Pyx_XDECREF_SET(__pyx_v_p, ((PyObject*)__pyx_t_1));
+          __pyx_t_1 = 0;
 
-          /* "unthrow.pyx":670
+          /* "unthrow.pyx":672
  *                 elif isinstance(i, dict):
  *                     p = (i, dict())
  *                     deep[key] = p[1]             # <<<<<<<<<<<<<<
  *                     stack.append(p)
  *                 else:
  */
-          __pyx_t_2 = __Pyx_GetItemInt_Tuple(__pyx_v_p, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 670, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          if (unlikely(PyObject_SetItem(__pyx_v_deep, __pyx_v_key, __pyx_t_2) < 0)) __PYX_ERR(0, 670, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_p, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 672, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          if (unlikely(PyObject_SetItem(__pyx_v_deep, __pyx_v_key, __pyx_t_1) < 0)) __PYX_ERR(0, 672, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "unthrow.pyx":671
+          /* "unthrow.pyx":673
  *                     p = (i, dict())
  *                     deep[key] = p[1]
  *                     stack.append(p)             # <<<<<<<<<<<<<<
  *                 else:
  *                     deep[key] = i
  */
-          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_stack, __pyx_v_p); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 671, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_stack, __pyx_v_p); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 673, __pyx_L1_error)
 
-          /* "unthrow.pyx":668
+          /* "unthrow.pyx":670
  *                     deep[key] = p[1]
  *                     stack.append(p)
  *                 elif isinstance(i, dict):             # <<<<<<<<<<<<<<
@@ -8983,7 +9009,7 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
           goto __pyx_L12;
         }
 
-        /* "unthrow.pyx":673
+        /* "unthrow.pyx":675
  *                     stack.append(p)
  *                 else:
  *                     deep[key] = i             # <<<<<<<<<<<<<<
@@ -8991,11 +9017,11 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
  *             for i in original:
  */
         /*else*/ {
-          if (unlikely(PyObject_SetItem(__pyx_v_deep, __pyx_v_key, __pyx_v_i) < 0)) __PYX_ERR(0, 673, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_v_deep, __pyx_v_key, __pyx_v_i) < 0)) __PYX_ERR(0, 675, __pyx_L1_error)
         }
         __pyx_L12:;
 
-        /* "unthrow.pyx":662
+        /* "unthrow.pyx":664
  *         (original, deep), *stack = stack
  *         if isinstance(original, dict):
  *             for key in original:             # <<<<<<<<<<<<<<
@@ -9003,10 +9029,10 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
  *                 if isinstance(i, list):
  */
       }
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "unthrow.pyx":661
- *     while stack:
+      /* "unthrow.pyx":663
+ *         print(len(stack))
  *         (original, deep), *stack = stack
  *         if isinstance(original, dict):             # <<<<<<<<<<<<<<
  *             for key in original:
@@ -9015,18 +9041,18 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
       goto __pyx_L9;
     }
 
-    /* "unthrow.pyx":674
+    /* "unthrow.pyx":676
  *                 else:
  *                     deep[key] = i
  *         elif isinstance(original, list):             # <<<<<<<<<<<<<<
  *             for i in original:
  *                 if isinstance(i, list):
  */
-    __pyx_t_8 = PyList_Check(__pyx_v_original); 
-    __pyx_t_3 = (__pyx_t_8 != 0);
+    __pyx_t_9 = PyList_Check(__pyx_v_original); 
+    __pyx_t_3 = (__pyx_t_9 != 0);
     if (__pyx_t_3) {
 
-      /* "unthrow.pyx":675
+      /* "unthrow.pyx":677
  *                     deep[key] = i
  *         elif isinstance(original, list):
  *             for i in original:             # <<<<<<<<<<<<<<
@@ -9034,48 +9060,48 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
  *                     p = (i, [])
  */
       if (likely(PyList_CheckExact(__pyx_v_original)) || PyTuple_CheckExact(__pyx_v_original)) {
-        __pyx_t_5 = __pyx_v_original; __Pyx_INCREF(__pyx_t_5); __pyx_t_9 = 0;
+        __pyx_t_6 = __pyx_v_original; __Pyx_INCREF(__pyx_t_6); __pyx_t_4 = 0;
         __pyx_t_10 = NULL;
       } else {
-        __pyx_t_9 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_v_original); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 675, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_10 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 675, __pyx_L1_error)
+        __pyx_t_4 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_v_original); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 677, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_10 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 677, __pyx_L1_error)
       }
       for (;;) {
         if (likely(!__pyx_t_10)) {
-          if (likely(PyList_CheckExact(__pyx_t_5))) {
-            if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_5)) break;
+          if (likely(PyList_CheckExact(__pyx_t_6))) {
+            if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_6)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_2 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_2); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 675, __pyx_L1_error)
+            __pyx_t_1 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 677, __pyx_L1_error)
             #else
-            __pyx_t_2 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 675, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_1 = PySequence_ITEM(__pyx_t_6, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 677, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_1);
             #endif
           } else {
-            if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
+            if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_2); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 675, __pyx_L1_error)
+            __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 677, __pyx_L1_error)
             #else
-            __pyx_t_2 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 675, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_1 = PySequence_ITEM(__pyx_t_6, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 677, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_1);
             #endif
           }
         } else {
-          __pyx_t_2 = __pyx_t_10(__pyx_t_5);
-          if (unlikely(!__pyx_t_2)) {
+          __pyx_t_1 = __pyx_t_10(__pyx_t_6);
+          if (unlikely(!__pyx_t_1)) {
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 675, __pyx_L1_error)
+              else __PYX_ERR(0, 677, __pyx_L1_error)
             }
             break;
           }
-          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_GOTREF(__pyx_t_1);
         }
-        __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_2);
-        __pyx_t_2 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
+        __pyx_t_1 = 0;
 
-        /* "unthrow.pyx":676
+        /* "unthrow.pyx":678
  *         elif isinstance(original, list):
  *             for i in original:
  *                 if isinstance(i, list):             # <<<<<<<<<<<<<<
@@ -9083,51 +9109,51 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
  *                     deep.append(p[1])
  */
         __pyx_t_3 = PyList_Check(__pyx_v_i); 
-        __pyx_t_8 = (__pyx_t_3 != 0);
-        if (__pyx_t_8) {
+        __pyx_t_9 = (__pyx_t_3 != 0);
+        if (__pyx_t_9) {
 
-          /* "unthrow.pyx":677
+          /* "unthrow.pyx":679
  *             for i in original:
  *                 if isinstance(i, list):
  *                     p = (i, [])             # <<<<<<<<<<<<<<
  *                     deep.append(p[1])
  *                     stack.append(p)
  */
-          __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 677, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 677, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_6);
+          __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 679, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 679, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_7);
           __Pyx_INCREF(__pyx_v_i);
           __Pyx_GIVEREF(__pyx_v_i);
-          PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_i);
-          __Pyx_GIVEREF(__pyx_t_2);
-          PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_2);
-          __pyx_t_2 = 0;
-          __Pyx_XDECREF_SET(__pyx_v_p, ((PyObject*)__pyx_t_6));
-          __pyx_t_6 = 0;
+          PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_i);
+          __Pyx_GIVEREF(__pyx_t_1);
+          PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_1);
+          __pyx_t_1 = 0;
+          __Pyx_XDECREF_SET(__pyx_v_p, ((PyObject*)__pyx_t_7));
+          __pyx_t_7 = 0;
 
-          /* "unthrow.pyx":678
+          /* "unthrow.pyx":680
  *                 if isinstance(i, list):
  *                     p = (i, [])
  *                     deep.append(p[1])             # <<<<<<<<<<<<<<
  *                     stack.append(p)
  *                 elif isinstance(i, dict):
  */
-          __pyx_t_6 = __Pyx_GetItemInt_Tuple(__pyx_v_p, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 678, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_deep, __pyx_t_6); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 678, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __pyx_t_7 = __Pyx_GetItemInt_Tuple(__pyx_v_p, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 680, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_7);
+          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_deep, __pyx_t_7); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 680, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "unthrow.pyx":679
+          /* "unthrow.pyx":681
  *                     p = (i, [])
  *                     deep.append(p[1])
  *                     stack.append(p)             # <<<<<<<<<<<<<<
  *                 elif isinstance(i, dict):
  *                     p = (i, dict())
  */
-          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_stack, __pyx_v_p); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 679, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_stack, __pyx_v_p); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 681, __pyx_L1_error)
 
-          /* "unthrow.pyx":676
+          /* "unthrow.pyx":678
  *         elif isinstance(original, list):
  *             for i in original:
  *                 if isinstance(i, list):             # <<<<<<<<<<<<<<
@@ -9137,59 +9163,59 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
           goto __pyx_L15;
         }
 
-        /* "unthrow.pyx":680
+        /* "unthrow.pyx":682
  *                     deep.append(p[1])
  *                     stack.append(p)
  *                 elif isinstance(i, dict):             # <<<<<<<<<<<<<<
  *                     p = (i, dict())
  *                     deep.append(p[1])
  */
-        __pyx_t_8 = PyDict_Check(__pyx_v_i); 
-        __pyx_t_3 = (__pyx_t_8 != 0);
+        __pyx_t_9 = PyDict_Check(__pyx_v_i); 
+        __pyx_t_3 = (__pyx_t_9 != 0);
         if (__pyx_t_3) {
 
-          /* "unthrow.pyx":681
+          /* "unthrow.pyx":683
  *                     stack.append(p)
  *                 elif isinstance(i, dict):
  *                     p = (i, dict())             # <<<<<<<<<<<<<<
  *                     deep.append(p[1])
  *                     stack.append(p)
  */
-          __pyx_t_6 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 681, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 681, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
+          __pyx_t_7 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 683, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_7);
+          __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 683, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
           __Pyx_INCREF(__pyx_v_i);
           __Pyx_GIVEREF(__pyx_v_i);
-          PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_i);
-          __Pyx_GIVEREF(__pyx_t_6);
-          PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_6);
-          __pyx_t_6 = 0;
-          __Pyx_XDECREF_SET(__pyx_v_p, ((PyObject*)__pyx_t_2));
-          __pyx_t_2 = 0;
+          PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_i);
+          __Pyx_GIVEREF(__pyx_t_7);
+          PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_7);
+          __pyx_t_7 = 0;
+          __Pyx_XDECREF_SET(__pyx_v_p, ((PyObject*)__pyx_t_1));
+          __pyx_t_1 = 0;
 
-          /* "unthrow.pyx":682
+          /* "unthrow.pyx":684
  *                 elif isinstance(i, dict):
  *                     p = (i, dict())
  *                     deep.append(p[1])             # <<<<<<<<<<<<<<
  *                     stack.append(p)
  *                 else:
  */
-          __pyx_t_2 = __Pyx_GetItemInt_Tuple(__pyx_v_p, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 682, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_deep, __pyx_t_2); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 682, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_p, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 684, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_deep, __pyx_t_1); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 684, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "unthrow.pyx":683
+          /* "unthrow.pyx":685
  *                     p = (i, dict())
  *                     deep.append(p[1])
  *                     stack.append(p)             # <<<<<<<<<<<<<<
  *                 else:
  *                     deep.append(i)
  */
-          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_stack, __pyx_v_p); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 683, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_stack, __pyx_v_p); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 685, __pyx_L1_error)
 
-          /* "unthrow.pyx":680
+          /* "unthrow.pyx":682
  *                     deep.append(p[1])
  *                     stack.append(p)
  *                 elif isinstance(i, dict):             # <<<<<<<<<<<<<<
@@ -9199,7 +9225,7 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
           goto __pyx_L15;
         }
 
-        /* "unthrow.pyx":685
+        /* "unthrow.pyx":687
  *                     stack.append(p)
  *                 else:
  *                     deep.append(i)             # <<<<<<<<<<<<<<
@@ -9207,11 +9233,11 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
  *         else:
  */
         /*else*/ {
-          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_deep, __pyx_v_i); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 685, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyObject_Append(__pyx_v_deep, __pyx_v_i); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 687, __pyx_L1_error)
         }
         __pyx_L15:;
 
-        /* "unthrow.pyx":675
+        /* "unthrow.pyx":677
  *                     deep[key] = i
  *         elif isinstance(original, list):
  *             for i in original:             # <<<<<<<<<<<<<<
@@ -9219,9 +9245,9 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
  *                     p = (i, [])
  */
       }
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "unthrow.pyx":674
+      /* "unthrow.pyx":676
  *                 else:
  *                     deep[key] = i
  *         elif isinstance(original, list):             # <<<<<<<<<<<<<<
@@ -9231,7 +9257,7 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
       goto __pyx_L9;
     }
 
-    /* "unthrow.pyx":688
+    /* "unthrow.pyx":690
  * 
  *         else:
  *             return;             # <<<<<<<<<<<<<<
@@ -9246,7 +9272,7 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
     __pyx_L9:;
   }
 
-  /* "unthrow.pyx":690
+  /* "unthrow.pyx":692
  *             return;
  * 
  *     return root             # <<<<<<<<<<<<<<
@@ -9260,17 +9286,17 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
  * 
  * 
  * def iter_deepcopy(obj):             # <<<<<<<<<<<<<<
+ *     print(obj)
  *     root = dict()
- *     stack = [(obj, root)]
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8);
   __Pyx_AddTraceback("unthrow.iter_deepcopy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -10820,8 +10846,8 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * 
  * def iter_deepcopy(obj):             # <<<<<<<<<<<<<<
+ *     print(obj)
  *     root = dict()
- *     stack = [(obj, root)]
  */
   __pyx_tuple__26 = PyTuple_Pack(8, __pyx_n_s_obj, __pyx_n_s_root, __pyx_n_s_stack, __pyx_n_s_original, __pyx_n_s_deep, __pyx_n_s_key, __pyx_n_s_i, __pyx_n_s_p); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 656, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__26);
@@ -11513,8 +11539,8 @@ if (!__Pyx_RefNanny) {
  * 
  * 
  * def iter_deepcopy(obj):             # <<<<<<<<<<<<<<
+ *     print(obj)
  *     root = dict()
- *     stack = [(obj, root)]
  */
   __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_7unthrow_6iter_deepcopy, NULL, __pyx_n_s_unthrow); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 656, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
