@@ -1390,9 +1390,6 @@ static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected);
 /* UnpackItemEndCheck.proto */
 static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected);
 
-/* None.proto */
-static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname);
-
 /* PyErrExceptionMatches.proto */
 #if CYTHON_FAST_THREAD_STATE
 #define __Pyx_PyErr_ExceptionMatches(err) __Pyx_PyErr_ExceptionMatchesInState(__pyx_tstate, err)
@@ -9240,7 +9237,7 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
  * 
  *         else:
  *             return;             # <<<<<<<<<<<<<<
- *     print(original)
+ *     print(obj)
  *     print(root)
  */
     /*else*/ {
@@ -9254,18 +9251,17 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
   /* "unthrow.pyx":691
  *         else:
  *             return;
- *     print(original)             # <<<<<<<<<<<<<<
+ *     print(obj)             # <<<<<<<<<<<<<<
  *     print(root)
  * 
  */
-  if (unlikely(!__pyx_v_original)) { __Pyx_RaiseUnboundLocalError("original"); __PYX_ERR(0, 691, __pyx_L1_error) }
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_original); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 691, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_obj); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 691, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
   /* "unthrow.pyx":692
  *             return;
- *     print(original)
+ *     print(obj)
  *     print(root)             # <<<<<<<<<<<<<<
  * 
  *     return root
@@ -13583,11 +13579,6 @@ static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected) {
         return __Pyx_IterFinish();
     }
     return 0;
-}
-
-/* None */
-static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname) {
-    PyErr_Format(PyExc_UnboundLocalError, "local variable '%s' referenced before assignment", varname);
 }
 
 /* PyErrExceptionMatches */
