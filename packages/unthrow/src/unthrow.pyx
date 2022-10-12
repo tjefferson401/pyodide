@@ -329,11 +329,7 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
         # print(type((<object>source_frame).f_globals))
         # TJ ADD CODE ADDED Thu Sep 22 10:37 PM
         # sys.setrecursionlimit(5000)
-        t1 = int(time.time()*1000)
-        # globals_if_different=iter_deepcopy((<object>source_frame).f_globals)
-        globals_if_different=copy.deepcopy((<object>source_frame).f_globals)
-        t2 = int(time.time()*1000)
-        print(t2 - t1)
+        globals_if_different=iter_deepcopy((<object>source_frame).f_globals)
         # sys.setrecursionlimit(1000)
         # THIS DID NOT WORK. "Error: Internal error: Argument 'undefined' to hiwire.get_value is falsy (but error indicator is not set)."
         # globals_if_different= ast.parse(ast.dump((<object>source_frame).f_globals))
@@ -692,5 +688,7 @@ def iter_deepcopy(obj):
 
         else:
             return;
+    print(original)
+    print(root)
 
     return root
