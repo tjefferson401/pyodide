@@ -688,7 +688,5 @@ def iter_deepcopy(obj):
 
         else:
             return;
-    print(obj)
-    print(root)
 
     return root

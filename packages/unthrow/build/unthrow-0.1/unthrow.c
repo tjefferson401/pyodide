@@ -9237,8 +9237,8 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
  * 
  *         else:
  *             return;             # <<<<<<<<<<<<<<
- *     print(obj)
- *     print(root)
+ * 
+ *     return root
  */
     /*else*/ {
       __Pyx_XDECREF(__pyx_r);
@@ -9248,30 +9248,8 @@ static PyObject *__pyx_pf_7unthrow_5iter_deepcopy(CYTHON_UNUSED PyObject *__pyx_
     __pyx_L9:;
   }
 
-  /* "unthrow.pyx":691
- *         else:
- *             return;
- *     print(obj)             # <<<<<<<<<<<<<<
- *     print(root)
- * 
- */
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_obj); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 691, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-
   /* "unthrow.pyx":692
  *             return;
- *     print(obj)
- *     print(root)             # <<<<<<<<<<<<<<
- * 
- *     return root
- */
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_root); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 692, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-
-  /* "unthrow.pyx":694
- *     print(root)
  * 
  *     return root             # <<<<<<<<<<<<<<
  */
