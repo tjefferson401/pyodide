@@ -6,11 +6,11 @@ from cpython cimport array
 import array
 import collections
 import sys,inspect,dis
-import time
 # TJ IMPORTS
+import time
 # import json
 # import ast
-# import copy
+import copy
 # END TJ IMPORTS
 
 traceall=False
@@ -330,7 +330,8 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
         # TJ ADD CODE ADDED Thu Sep 22 10:37 PM
         # sys.setrecursionlimit(5000)
         t1 = int(time.time()*1000)
-        globals_if_different=iter_deepcopy((<object>source_frame).f_globals)
+        # globals_if_different=iter_deepcopy((<object>source_frame).f_globals)
+        globals_if_different=copy.deepcopy((<object>source_frame).f_globals)
         t2 = int(time.time()*1000)
         print(t2 - t1)
         # sys.setrecursionlimit(1000)
