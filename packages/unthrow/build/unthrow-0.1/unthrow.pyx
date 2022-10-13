@@ -389,7 +389,6 @@ cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFra
     saved_frame.locals_and_stack=[]
     # restore block stack
     for c,x in enumerate(saved_frame.block_stack):
-        print("Looping through saved_frame.block_stack")
         target_frame.f_blockstack[c]=x
     target_frame.f_iblock=len(saved_frame.block_stack)
     saved_frame.block_stack=[]
@@ -402,7 +401,6 @@ cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFra
 
     if saved_frame.globals_if_different!=None:
         while PyDict_Next(<PyObject*>(saved_frame.globals_if_different), &pos, &key, &srcValue)!=0:
-            print("Looping through globals if different = none", (<object>target_frame).f_globals)
             targetValue=PyDict_GetItem(target_frame.f_globals,key)
             # add any new keys
             set_it=False
@@ -418,7 +416,6 @@ cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFra
 
     if (target_frame.f_code.co_flags & inspect.CO_OPTIMIZED)==0 and saved_frame.slow_locals!=None:
         while PyDict_Next(<PyObject*>(saved_frame.slow_locals), &pos, &key, &srcValue)!=0:
-            print("Looping through globals if different = none", (<object>target_frame).f_globals)
             targetValue=PyDict_GetItem(target_frame.f_locals,key)
             # add any new keys
             set_it=False
@@ -450,9 +447,13 @@ cdef void set_resume(int is_resuming):
     resume_state=0
     in_resume=is_resuming
     if in_resume==0 and interrupt_frequency==0:
+        print("SETTING TRACE IF")
         PyEval_SetTrace(NULL,NULL)
+        print("AFTER TRACE if")
     else:
+        print("SETTING TRACE ELSE")
         PyEval_SetTrace(&_c_trace_fn,NULL)
+        print("AFTER TRACE ELSE")
 
 cdef void set_interrupt_frequency(int freq):
     global in_resume,resume_state,interrupt_frequency,interrupt_counter,_trace_obj
@@ -635,6 +636,7 @@ cdef void _resume_frame(PyObject* c_saved_frames,PyFrameObject* c_frame):
             if len(saved_frames)==0:
                 print("Resuming")
                 set_resume(0)
+                print("AFTER SET RESUME")
                 _resume_list=NULL;
                 interrupts_enabled=1
 
