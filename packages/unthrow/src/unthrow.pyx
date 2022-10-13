@@ -217,6 +217,7 @@ ResumableExceptionClass=<PyObject*>PyErr_NewException("unthrow.ResumableExceptio
 ResumableException=<object>ResumableExceptionClass
 
 cdef _get_stack_pos(object code,int target,int before):
+    print("_get_stack_pos")
     if target<0: # start of fn, empty stack
         return 0
     cdef int no_jump
@@ -281,6 +282,7 @@ cdef object step_info(PyFrameObject* source_frame):
 # TJ END
 
 cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
+    print("restore_saved_frame")
     cdef PyObject *localPtr;
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)!=0:
         PyFrame_LocalsToFast(source_frame,0)
@@ -329,7 +331,7 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
         # print(type((<object>source_frame).f_globals))
         # TJ ADD CODE ADDED Thu Sep 22 10:37 PM
         # sys.setrecursionlimit(5000)
-        print("Iter copy")
+        print("save_frame: Copying globals if different iterively")
         globals_if_different=iter_deepcopy((<object>source_frame).f_globals)
         # sys.setrecursionlimit(1000)
         # THIS DID NOT WORK. "Error: Internal error: Argument 'undefined' to hiwire.get_value is falsy (but error indicator is not set)."
@@ -344,13 +346,14 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     # if we are in a non-optimized frame, i.e. without fast locals, we need to copy the locals dict
     slow_locals=None
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)==0 and source_frame.f_locals!=source_frame.f_globals:
-        print("In None optimized frame")
+        print("save_frame: Copying slow locals")
         slow_locals=(<object>source_frame).f_locals.copy()
 
 
     return _SavedFrame(locals_and_stack=valuestack,code=code_obj,lasti=lasti,block_stack=blockstack,globals_if_different=globals_if_different,slow_locals=slow_locals)
 
 cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFrame):
+    print("restore_saved_frame")
     cdef PyObject* tmpObject
     cdef PyObject* borrowed_list_item;
     if (target_frame.f_code.co_flags & inspect.CO_OPTIMIZED)!=0:
@@ -439,6 +442,7 @@ cdef int interrupt_call_level=0
 cdef int interrupt_with_level=-1
 
 cdef void set_resume(int is_resuming):
+    print("set_resume")
     global in_resume,resume_state,interrupt_frequency,_trace_obj
     resume_state=0
     in_resume=is_resuming
@@ -448,6 +452,7 @@ cdef void set_resume(int is_resuming):
         PyEval_SetTrace(&_c_trace_fn,NULL)
 
 cdef void set_interrupt_frequency(int freq):
+    print("set_interrupt_frequency")
     global in_resume,resume_state,interrupt_frequency,interrupt_counter,_trace_obj
     if interrupt_frequency!=freq:
         interrupt_counter=0
@@ -459,6 +464,7 @@ cdef void set_interrupt_frequency(int freq):
 
 # check if this frame is currently within a with or finally block
 cdef int _check_blocks(PyFrameObject* frame):
+    print("_check_blocks")
     frameCode=PyBytes_AsString(frame.f_code.co_code)
     for c in range(frame.f_iblock):
         # inside a with block
@@ -485,6 +491,7 @@ cdef int _check_blocks(PyFrameObject* frame):
 
 cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                  int what, PyObject *arg):
+    print("_c_trace_fn")
     global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level
     # ADD TJ
     # ADD TJ END
@@ -537,6 +544,7 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
     return 0
 
 cdef make_interrupt(void* arg,PyFrameObject*frame):
+    print("make_interrupt")
     interrupts_enabled=0
     cdef PyObject *rex
     cdef PyObject* rex_type
@@ -554,6 +562,7 @@ cdef make_interrupt(void* arg,PyFrameObject*frame):
 
 
 cdef PyObject* make_resumable_exception(PyObject* msg,PyFrameObject* frame):
+    print("make_resumable_exception")
     cdef PyObject* exc=PyObject_Call(ResumableExceptionClass,PyTuple_New(0),NULL)
     (<object>exc).parameter=<object>msg;
     (<object>exc).saved_frames=[]
@@ -570,6 +579,7 @@ cdef PyObject* make_resumable_exception(PyObject* msg,PyFrameObject* frame):
 # and calling stack objects are dereferenced etc.
     # TJ ADD BEGIN
 cdef _save_stack(object saved_frames,PyFrameObject* cFrame, object local_vars):
+    print("_save_stack")
     from_interrupt=False
     if cFrame==NULL:
         cFrame=PyEval_GetFrame()
@@ -585,6 +595,7 @@ cdef _save_stack(object saved_frames,PyFrameObject* cFrame, object local_vars):
         cFrame=cFrame.f_back
 
 cdef void _do_resume(PyObject* c_saved_frames):
+    print("_do_resume")
     # c_saved_frames = resumer.resume_stack
     # pulls in globals skip_stop, resume_list
     global __skip_stop,_resume_list
@@ -615,6 +626,7 @@ cdef void _do_resume(PyObject* c_saved_frames):
     set_resume(1)
 
 cdef void _resume_frame(PyObject* c_saved_frames,PyFrameObject* c_frame):
+    print("_resume_frame")
     global interrupts_enabled
     frame=<object>c_frame
     saved_frames=<object>c_saved_frames
