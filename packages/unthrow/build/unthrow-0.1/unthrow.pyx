@@ -432,6 +432,7 @@ cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFra
                 PyDict_SetItem(target_frame.f_locals,key,srcValue)
     saved_frame.slow_locals=None
     del saved_frame
+    print("restore_saved_frame ENDING")
 
 
 # the parent frame where interrupts were started.
@@ -632,6 +633,7 @@ cdef void _resume_frame(PyObject* c_saved_frames,PyFrameObject* c_frame):
 #            print("MATCH FRAME:",frame,resumeFrame)
             restore_saved_frame(c_frame,resumeFrame)
             if len(saved_frames)==0:
+                print("Resuming")
                 set_resume(0)
                 _resume_list=NULL;
                 interrupts_enabled=1
