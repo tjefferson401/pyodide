@@ -442,7 +442,6 @@ cdef int interrupt_call_level=0
 cdef int interrupt_with_level=-1
 
 cdef void set_resume(int is_resuming):
-    print("set_resume")
     global in_resume,resume_state,interrupt_frequency,_trace_obj
     resume_state=0
     in_resume=is_resuming
@@ -452,7 +451,6 @@ cdef void set_resume(int is_resuming):
         PyEval_SetTrace(&_c_trace_fn,NULL)
 
 cdef void set_interrupt_frequency(int freq):
-    print("set_interrupt_frequency")
     global in_resume,resume_state,interrupt_frequency,interrupt_counter,_trace_obj
     if interrupt_frequency!=freq:
         interrupt_counter=0
@@ -464,7 +462,6 @@ cdef void set_interrupt_frequency(int freq):
 
 # check if this frame is currently within a with or finally block
 cdef int _check_blocks(PyFrameObject* frame):
-    print("_check_blocks")
     frameCode=PyBytes_AsString(frame.f_code.co_code)
     for c in range(frame.f_iblock):
         # inside a with block
@@ -491,9 +488,9 @@ cdef int _check_blocks(PyFrameObject* frame):
 
 cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                  int what, PyObject *arg):
-    print("_c_trace_fn")
     global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level
     # ADD TJ
+    print("c_trace")
     # ADD TJ END
     if in_resume:
         # in resume call, ignore interrupts
