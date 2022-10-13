@@ -546,6 +546,7 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
     return 0
 
 cdef make_interrupt(void* arg,PyFrameObject*frame):
+    print("Making interupt", (<object>frame))
     interrupts_enabled=0
     cdef PyObject *rex
     cdef PyObject* rex_type
