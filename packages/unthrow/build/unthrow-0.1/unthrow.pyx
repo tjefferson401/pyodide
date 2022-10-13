@@ -329,6 +329,7 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
         # print(type((<object>source_frame).f_globals))
         # TJ ADD CODE ADDED Thu Sep 22 10:37 PM
         # sys.setrecursionlimit(5000)
+        print("Iter copy")
         globals_if_different=iter_deepcopy((<object>source_frame).f_globals)
         # sys.setrecursionlimit(1000)
         # THIS DID NOT WORK. "Error: Internal error: Argument 'undefined' to hiwire.get_value is falsy (but error indicator is not set)."
@@ -343,6 +344,7 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     # if we are in a non-optimized frame, i.e. without fast locals, we need to copy the locals dict
     slow_locals=None
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)==0 and source_frame.f_locals!=source_frame.f_globals:
+        print("In None optimized frame")
         slow_locals=(<object>source_frame).f_locals.copy()
 
 
