@@ -217,7 +217,6 @@ ResumableExceptionClass=<PyObject*>PyErr_NewException("unthrow.ResumableExceptio
 ResumableException=<object>ResumableExceptionClass
 
 cdef _get_stack_pos(object code,int target,int before):
-    print("_get_stack_pos")
     if target<0: # start of fn, empty stack
         return 0
     cdef int no_jump
@@ -282,7 +281,7 @@ cdef object step_info(PyFrameObject* source_frame):
 # TJ END
 
 cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
-    print("restore_saved_frame")
+    print("save_frame")
     cdef PyObject *localPtr;
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)!=0:
         PyFrame_LocalsToFast(source_frame,0)
@@ -370,6 +369,7 @@ cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFra
     num_locals=<int>(target_frame.f_valuestack-target_frame.f_localsplus)
     num_oldstack=<int>(target_frame.f_stacktop-target_frame.f_valuestack)
     for c in range(len(saved_frame.locals_and_stack)):
+        print("Looping through locals and stack")
         if c<num_locals:
             tmpObject=target_frame.f_localsplus[c]
         else:
@@ -389,6 +389,7 @@ cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFra
     saved_frame.locals_and_stack=[]
     # restore block stack
     for c,x in enumerate(saved_frame.block_stack):
+        print("Looping through saved_frame.block_stack")
         target_frame.f_blockstack[c]=x
     target_frame.f_iblock=len(saved_frame.block_stack)
     saved_frame.block_stack=[]
@@ -401,6 +402,7 @@ cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFra
 
     if saved_frame.globals_if_different!=None:
         while PyDict_Next(<PyObject*>(saved_frame.globals_if_different), &pos, &key, &srcValue)!=0:
+            print("Looping through globals if different = none", (<object>target_frame).f_globals)
             targetValue=PyDict_GetItem(target_frame.f_globals,key)
             # add any new keys
             set_it=False
@@ -416,6 +418,7 @@ cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFra
 
     if (target_frame.f_code.co_flags & inspect.CO_OPTIMIZED)==0 and saved_frame.slow_locals!=None:
         while PyDict_Next(<PyObject*>(saved_frame.slow_locals), &pos, &key, &srcValue)!=0:
+            print("Looping through globals if different = none", (<object>target_frame).f_globals)
             targetValue=PyDict_GetItem(target_frame.f_locals,key)
             # add any new keys
             set_it=False
@@ -537,6 +540,7 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                              # gets cleaned up by cpython
                 else:
                     interrupts_enabled=1
+
     return 0
 
 cdef make_interrupt(void* arg,PyFrameObject*frame):
@@ -557,7 +561,6 @@ cdef make_interrupt(void* arg,PyFrameObject*frame):
 
 
 cdef PyObject* make_resumable_exception(PyObject* msg,PyFrameObject* frame):
-    print("make_resumable_exception")
     cdef PyObject* exc=PyObject_Call(ResumableExceptionClass,PyTuple_New(0),NULL)
     (<object>exc).parameter=<object>msg;
     (<object>exc).saved_frames=[]
@@ -574,7 +577,6 @@ cdef PyObject* make_resumable_exception(PyObject* msg,PyFrameObject* frame):
 # and calling stack objects are dereferenced etc.
     # TJ ADD BEGIN
 cdef _save_stack(object saved_frames,PyFrameObject* cFrame, object local_vars):
-    print("_save_stack")
     from_interrupt=False
     if cFrame==NULL:
         cFrame=PyEval_GetFrame()
@@ -590,7 +592,6 @@ cdef _save_stack(object saved_frames,PyFrameObject* cFrame, object local_vars):
         cFrame=cFrame.f_back
 
 cdef void _do_resume(PyObject* c_saved_frames):
-    print("_do_resume")
     # c_saved_frames = resumer.resume_stack
     # pulls in globals skip_stop, resume_list
     global __skip_stop,_resume_list
@@ -621,7 +622,6 @@ cdef void _do_resume(PyObject* c_saved_frames):
     set_resume(1)
 
 cdef void _resume_frame(PyObject* c_saved_frames,PyFrameObject* c_frame):
-    print("_resume_frame")
     global interrupts_enabled
     frame=<object>c_frame
     saved_frames=<object>c_saved_frames
