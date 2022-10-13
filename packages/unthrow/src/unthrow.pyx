@@ -490,7 +490,6 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                  int what, PyObject *arg):
     global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level
     # ADD TJ
-    print("c_trace")
     # ADD TJ END
     if in_resume:
         # in resume call, ignore interrupts
@@ -541,7 +540,6 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
     return 0
 
 cdef make_interrupt(void* arg,PyFrameObject*frame):
-    print("make_interrupt")
     interrupts_enabled=0
     cdef PyObject *rex
     cdef PyObject* rex_type
