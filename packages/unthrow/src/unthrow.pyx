@@ -284,6 +284,7 @@ cdef object step_info(PyFrameObject* source_frame):
 # ISSUE MUST BE IN HERE
 cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     cdef PyObject *localPtr;
+    print(<object>source_frame)
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)!=0:
         PyFrame_LocalsToFast(source_frame,0)
     blockstack=[]
