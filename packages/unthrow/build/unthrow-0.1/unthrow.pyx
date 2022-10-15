@@ -281,7 +281,6 @@ cdef object step_info(PyFrameObject* source_frame):
 # TJ END
 
 cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
-    print("save_frame")
     cdef PyObject *localPtr;
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)!=0:
         PyFrame_LocalsToFast(source_frame,0)
@@ -330,7 +329,6 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
         # print(type((<object>source_frame).f_globals))
         # TJ ADD CODE ADDED Thu Sep 22 10:37 PM
         # sys.setrecursionlimit(5000)
-        print("save_frame: Copying globals if different iterively")
         globals_if_different=iter_deepcopy((<object>source_frame).f_globals)
         # sys.setrecursionlimit(1000)
         # THIS DID NOT WORK. "Error: Internal error: Argument 'undefined' to hiwire.get_value is falsy (but error indicator is not set)."
@@ -345,14 +343,12 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     # if we are in a non-optimized frame, i.e. without fast locals, we need to copy the locals dict
     slow_locals=None
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)==0 and source_frame.f_locals!=source_frame.f_globals:
-        print("save_frame: Copying slow locals")
         slow_locals=(<object>source_frame).f_locals.copy()
 
 
     return _SavedFrame(locals_and_stack=valuestack,code=code_obj,lasti=lasti,block_stack=blockstack,globals_if_different=globals_if_different,slow_locals=slow_locals)
 
 cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFrame):
-    print("restore_saved_frame")
     cdef PyObject* tmpObject
     cdef PyObject* borrowed_list_item;
     if (target_frame.f_code.co_flags & inspect.CO_OPTIMIZED)!=0:
@@ -369,7 +365,6 @@ cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFra
     num_locals=<int>(target_frame.f_valuestack-target_frame.f_localsplus)
     num_oldstack=<int>(target_frame.f_stacktop-target_frame.f_valuestack)
     for c in range(len(saved_frame.locals_and_stack)):
-        print("Looping through locals and stack")
         if c<num_locals:
             tmpObject=target_frame.f_localsplus[c]
         else:
@@ -429,7 +424,6 @@ cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFra
                 PyDict_SetItem(target_frame.f_locals,key,srcValue)
     saved_frame.slow_locals=None
     del saved_frame
-    print("restore_saved_frame ENDING")
 
 
 # the parent frame where interrupts were started.
@@ -447,13 +441,9 @@ cdef void set_resume(int is_resuming):
     resume_state=0
     in_resume=is_resuming
     if in_resume==0 and interrupt_frequency==0:
-        print("SETTING TRACE IF")
         PyEval_SetTrace(NULL,NULL)
-        print("AFTER TRACE if")
     else:
-        print("SETTING TRACE ELSE")
         PyEval_SetTrace(&_c_trace_fn,NULL)
-        print("AFTER TRACE ELSE")
 
 cdef void set_interrupt_frequency(int freq):
     global in_resume,resume_state,interrupt_frequency,interrupt_counter,_trace_obj
@@ -496,8 +486,8 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
     global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level
     # ADD TJ
     # ADD TJ END
+    print("Trace Begin")
     if in_resume:
-        print("Here in resume", <object>frame)
         # in resume call, ignore interrupts
         if what==PyTrace_CALL:
             _resume_frame(_resume_list,frame)
@@ -543,11 +533,11 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                              # gets cleaned up by cpython
                 else:
                     interrupts_enabled=1
+    print("Trace End at end")
 
     return 0
 
 cdef make_interrupt(void* arg,PyFrameObject*frame):
-    print("Making interupt", (<object>frame))
     interrupts_enabled=0
     cdef PyObject *rex
     cdef PyObject* rex_type
@@ -636,9 +626,7 @@ cdef void _resume_frame(PyObject* c_saved_frames,PyFrameObject* c_frame):
 #            print("MATCH FRAME:",frame,resumeFrame)
             restore_saved_frame(c_frame,resumeFrame)
             if len(saved_frames)==0:
-                print("Resuming")
                 set_resume(0)
-                print("AFTER SET RESUME")
                 _resume_list=NULL;
                 interrupts_enabled=1
 
