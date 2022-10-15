@@ -81,7 +81,7 @@ class Resumer:
 # like a named tuple but mutable (so that we can zero things to avoid leaks)
 class _SavedFrame:
     def __init__(self,*,locals_and_stack,lasti,code,block_stack,globals_if_different,slow_locals):
-        dict=locals().copy() # put all the parameters to this into the dict
+        dict= iter_deepcopy(locals())# put all the parameters to this into the dict
         del dict["self"]
         self._dictionary=dict
 
@@ -284,7 +284,8 @@ cdef object step_info(PyFrameObject* source_frame):
 # ISSUE MUST BE IN HERE
 cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     cdef PyObject *localPtr;
-    print(<object>source_frame)
+    print("F GLOBS", (<object>source_frame).f_globals)
+    print("F LOCS", (<object>source_frame).f_locals)
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)!=0:
         PyFrame_LocalsToFast(source_frame,0)
     blockstack=[]
