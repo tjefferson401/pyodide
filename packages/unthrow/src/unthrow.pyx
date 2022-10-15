@@ -486,7 +486,6 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
     global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level
     # ADD TJ
     # ADD TJ END
-    print("Trace Begin")
     if in_resume:
         # in resume call, ignore interrupts
         if what==PyTrace_CALL:
@@ -533,8 +532,6 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                              # gets cleaned up by cpython
                 else:
                     interrupts_enabled=1
-    print("Trace End at end")
-
     return 0
 
 cdef make_interrupt(void* arg,PyFrameObject*frame):
