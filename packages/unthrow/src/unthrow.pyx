@@ -280,6 +280,8 @@ cdef object step_info(PyFrameObject* source_frame):
 
 # TJ END
 
+
+# ISSUE MUST BE IN HERE
 cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     cdef PyObject *localPtr;
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)!=0:
@@ -343,7 +345,7 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     # if we are in a non-optimized frame, i.e. without fast locals, we need to copy the locals dict
     slow_locals=None
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)==0 and source_frame.f_locals!=source_frame.f_globals:
-        slow_locals=(<object>source_frame).f_locals.copy()
+        slow_locals=iter_deepcopy((<object>source_frame).f_locals)
 
 
     return _SavedFrame(locals_and_stack=valuestack,code=code_obj,lasti=lasti,block_stack=blockstack,globals_if_different=globals_if_different,slow_locals=slow_locals)
