@@ -497,6 +497,7 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
     # ADD TJ
     # ADD TJ END
     if in_resume:
+        print("Here in resume", <object>frame)
         # in resume call, ignore interrupts
         if what==PyTrace_CALL:
             _resume_frame(_resume_list,frame)
