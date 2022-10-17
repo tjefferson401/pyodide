@@ -345,6 +345,8 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     # if we are in a non-optimized frame, i.e. without fast locals, we need to copy the locals dict
     slow_locals=None
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)==0 and source_frame.f_locals!=source_frame.f_globals:
+        print("REGS:", (<object>source_frame).f_locals)
+        print("PLUS:", (<object>source_frame).f_localsplus)
         slow_locals=iter_deepcopy((<object>source_frame).f_locals)
 
 
@@ -373,7 +375,6 @@ cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFra
             tmpObject=NULL
         borrowed_list_item=PyList_GetItem(<PyObject*>saved_frame.locals_and_stack,c)
         if PyObject_Type(borrowed_list_item)==<PyObject*>_PythonNULL:
-            print(<object>target_frame.f_localsplus[c])
             target_frame.f_localsplus[c]=NULL
         else:
             target_frame.f_localsplus[c]=borrowed_list_item
