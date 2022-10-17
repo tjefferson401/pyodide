@@ -101,7 +101,7 @@ class _SavedFrame:
         return str(self._dictionary)
 
 class _PythonNULL(object):
-    print(object)
+    pass
 
 def test_iter(maxVal):
     for c in range(maxVal):
@@ -312,8 +312,10 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     valuestack=[]
     for c in range(our_stacksize+our_localsize):
         if <int>source_frame.f_localsplus[c] ==0:
+            print("PYNULL", <object>source_frame.f_localsplus[c])
             valuestack.append(_PythonNULL())
         else:
+            print("NONULL", <object>source_frame.f_localsplus[c])
             localObj=<object>source_frame.f_localsplus[c]
             valuestack.append(localObj)
     blockstack=[]
