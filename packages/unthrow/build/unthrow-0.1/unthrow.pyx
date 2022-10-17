@@ -373,6 +373,7 @@ cdef void restore_saved_frame(PyFrameObject* target_frame,saved_frame: _SavedFra
             tmpObject=NULL
         borrowed_list_item=PyList_GetItem(<PyObject*>saved_frame.locals_and_stack,c)
         if PyObject_Type(borrowed_list_item)==<PyObject*>_PythonNULL:
+            print(<object>target_frame.f_localsplus[c])
             target_frame.f_localsplus[c]=NULL
         else:
             target_frame.f_localsplus[c]=borrowed_list_item
@@ -491,8 +492,8 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
     if in_resume:
         # in resume call, ignore interrupts
         if what==PyTrace_CALL:
-            print("FRAME OBJECT", <object>frame)
-            print("RESUME LIST", <object>_resume_list)
+            # print("FRAME OBJECT", <object>frame)
+            # print("RESUME LIST", <object>_resume_list)
             _resume_frame(_resume_list,frame)
     elif interrupts_enabled==1:
         if what==PyTrace_CALL:
