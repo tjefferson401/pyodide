@@ -284,8 +284,6 @@ cdef object step_info(PyFrameObject* source_frame):
 # ISSUE MUST BE IN HERE
 cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     cdef PyObject *localPtr;
-    print("F GLOBS", (<object>source_frame).f_globals)
-    print("F LOCS", (<object>source_frame).f_locals)
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)!=0:
         PyFrame_LocalsToFast(source_frame,0)
     blockstack=[]
@@ -294,7 +292,7 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     # get our value stack size from the code instructions
     if from_interrupt:
         # in an interrupt top level frame, the function is at the start of an instruction
-        # and the next instruction is about to run
+        # ankd the next instruction is about to run
         lasti-=2
         if source_frame.f_stacktop!=NULL:
             our_stacksize=source_frame.f_stacktop - source_frame.f_valuestack
@@ -493,6 +491,8 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
     if in_resume:
         # in resume call, ignore interrupts
         if what==PyTrace_CALL:
+            print("FRAME OBJECT", <object>frame)
+            print("RESUME LIST", <object>_resume_list)
             _resume_frame(_resume_list,frame)
     elif interrupts_enabled==1:
         if what==PyTrace_CALL:
