@@ -101,7 +101,7 @@ class _SavedFrame:
         return str(self._dictionary)
 
 class _PythonNULL(object):
-    pass
+    print(object)
 
 def test_iter(maxVal):
     for c in range(maxVal):
@@ -345,8 +345,6 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     # if we are in a non-optimized frame, i.e. without fast locals, we need to copy the locals dict
     slow_locals=None
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)==0 and source_frame.f_locals!=source_frame.f_globals:
-        print("REGS:", (<object>source_frame).f_locals)
-        print("PLUS:", (<object>source_frame).f_localsplus)
         slow_locals=iter_deepcopy((<object>source_frame).f_locals)
 
 
