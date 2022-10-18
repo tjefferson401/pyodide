@@ -7509,7 +7509,7 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
  *                       interrupt_with_level=interrupt_call_level
  *                 interrupts_enabled=0             # <<<<<<<<<<<<<<
  *                 if interrupt_with_level==-1:
- *                     print((<object>frame).f_code.co_name)
+ *                     print((<object>self).f_code.co_name)
  */
         __pyx_v_7unthrow_interrupts_enabled = 0;
 
@@ -7517,7 +7517,7 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
  *                       interrupt_with_level=interrupt_call_level
  *                 interrupts_enabled=0
  *                 if interrupt_with_level==-1:             # <<<<<<<<<<<<<<
- *                     print((<object>frame).f_code.co_name)
+ *                     print((<object>self).f_code.co_name)
  *                     # throw interrupt exception
  */
         __pyx_t_1 = ((__pyx_v_7unthrow_interrupt_with_level == -1L) != 0);
@@ -7526,11 +7526,11 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
           /* "unthrow.pyx":532
  *                 interrupts_enabled=0
  *                 if interrupt_with_level==-1:
- *                     print((<object>frame).f_code.co_name)             # <<<<<<<<<<<<<<
+ *                     print((<object>self).f_code.co_name)             # <<<<<<<<<<<<<<
  *                     # throw interrupt exception
  *                     interrupt_counter=0
  */
-          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_f_code); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 532, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_f_code); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 532, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_co_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 532, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
@@ -7541,7 +7541,7 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
           /* "unthrow.pyx":534
- *                     print((<object>frame).f_code.co_name)
+ *                     print((<object>self).f_code.co_name)
  *                     # throw interrupt exception
  *                     interrupt_counter=0             # <<<<<<<<<<<<<<
  *                     make_interrupt(<void*>self,frame)
@@ -7574,7 +7574,7 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
  *                       interrupt_with_level=interrupt_call_level
  *                 interrupts_enabled=0
  *                 if interrupt_with_level==-1:             # <<<<<<<<<<<<<<
- *                     print((<object>frame).f_code.co_name)
+ *                     print((<object>self).f_code.co_name)
  *                     # throw interrupt exception
  */
         }

@@ -529,7 +529,7 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                       interrupt_with_level=interrupt_call_level
                 interrupts_enabled=0
                 if interrupt_with_level==-1:
-                    print((<object>frame).f_code.co_name)
+                    print((<object>self).f_code.co_name)
                     # throw interrupt exception
                     interrupt_counter=0
                     make_interrupt(<void*>self,frame)
