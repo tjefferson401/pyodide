@@ -312,10 +312,8 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     valuestack=[]
     for c in range(our_stacksize+our_localsize):
         if <int>source_frame.f_localsplus[c] ==0:
-            print("PYNULL", <object>source_frame.f_localsplus[c])
             valuestack.append(_PythonNULL())
         else:
-            print("NONULL", <object>source_frame.f_localsplus[c])
             localObj=<object>source_frame.f_localsplus[c]
             valuestack.append(localObj)
     blockstack=[]
@@ -531,6 +529,7 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                       interrupt_with_level=interrupt_call_level
                 interrupts_enabled=0
                 if interrupt_with_level==-1:
+                    print((<object>frame).f_code.co_name)
                     # throw interrupt exception
                     interrupt_counter=0
                     make_interrupt(<void*>self,frame)
