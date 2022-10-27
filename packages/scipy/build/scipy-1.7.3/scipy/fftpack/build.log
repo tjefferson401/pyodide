@@ -2,5 +2,5 @@
 ["c++", "-print-file-name=libomp.so"]
 ["c++", "-print-file-name=libgomp.so"]
 ["c++", "-print-file-name=libiomp5.so"]
-["gcc", "-Wl,-t", "-o", "/tmp/tmpj63mrcp1", "-lomp"]
+["gcc", "-Wl,-t", "-o", "/tmp/tmpuqprcpep", "-lomp"]
 ["ld", "-t", "-o", "/dev/null", "-lomp"]
