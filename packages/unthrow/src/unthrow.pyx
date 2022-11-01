@@ -486,10 +486,13 @@ cdef int _check_blocks(PyFrameObject* frame):
             else:
                 return False
 
+c_trace_count = 0
 cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                  int what, PyObject *arg):
-    global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level
+    global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level, c_trace_count
     # ADD TJ
+    c_trace_count = c_trace_count + 1
+    print(c_trace_count)
     # ADD TJ END
     if in_resume:
         # in resume call, ignore interrupts

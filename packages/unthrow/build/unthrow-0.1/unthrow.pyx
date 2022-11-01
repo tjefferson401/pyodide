@@ -281,9 +281,11 @@ cdef object step_info(PyFrameObject* source_frame):
 # TJ END
 
 
-# ISSUE MUST BE IN HERE
+# CSTR BUG NOTE: ISSUE MUST BE IN HERE
+# This function executes for each frame
 cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
     cdef PyObject *localPtr;
+    # CSTR BUG NOTE: Could this be the issue? I am not sure if this is called at all
     if (source_frame.f_code.co_flags & inspect.CO_OPTIMIZED)!=0:
         PyFrame_LocalsToFast(source_frame,0)
     blockstack=[]
@@ -331,6 +333,7 @@ cdef object save_frame(PyFrameObject* source_frame,from_interrupt):
         # print(type((<object>source_frame).f_globals))
         # TJ ADD CODE ADDED Thu Sep 22 10:37 PM
         # sys.setrecursionlimit(5000)
+        # CSTR BUG NOTE:
         globals_if_different=iter_deepcopy((<object>source_frame).f_globals)
         # sys.setrecursionlimit(1000)
         # THIS DID NOT WORK. "Error: Internal error: Argument 'undefined' to hiwire.get_value is falsy (but error indicator is not set)."
@@ -483,10 +486,13 @@ cdef int _check_blocks(PyFrameObject* frame):
             else:
                 return False
 
+c_trace_count = 0
 cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                  int what, PyObject *arg):
-    global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level
+    global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level, c_trace_count
     # ADD TJ
+    c_trace_count = c_trace_count + 1
+    print(c_trace_count)
     # ADD TJ END
     if in_resume:
         # in resume call, ignore interrupts
@@ -528,9 +534,11 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                     if _check_blocks(frame):
                       interrupt_with_level=interrupt_call_level
                 interrupts_enabled=0
+                # does not unthrow is current scope is a constructor
                 if interrupt_with_level==-1 and (<object>frame).f_code.co_name != "__init__":
                     # throw interrupt exception
                     interrupt_counter=0
+                    # CSTR BUG NOTE: if unthrow is in order, _c_trace_fn calls make_interrupt, with pointer to c_trace func and frame obj
                     make_interrupt(<void*>self,frame)
                     return 1 # need to return 1 to signal error or else our exception
                              # gets cleaned up by cpython
@@ -546,6 +554,7 @@ cdef make_interrupt(void* arg,PyFrameObject*frame):
     cdef PyObject* msg=PyDict_New()
     PyDict_SetItemString(msg,"interrupt",Py_True)
     try:
+        # CSTR BUG NOTE: Make interrupt sets rex to resumable exception, then decrements reference to rex
         rex=make_resumable_exception(msg,frame)
         rex_type=<PyObject*>rex.ob_type
         PyErr_SetObject(<PyObject*>rex_type,rex)
@@ -556,12 +565,15 @@ cdef make_interrupt(void* arg,PyFrameObject*frame):
 
 
 cdef PyObject* make_resumable_exception(PyObject* msg,PyFrameObject* frame):
+    # CSTR BUG NOTE: Here is where the resumable exception object is made. The issue likely occurs
+    # when copying the frame info from the current frame.
     cdef PyObject* exc=PyObject_Call(ResumableExceptionClass,PyTuple_New(0),NULL)
     (<object>exc).parameter=<object>msg;
     (<object>exc).saved_frames=[]
     # TJ ADD BEGIN
     (<object>exc).local_vars=[]
     #_save_stack((<object>exc).saved_frames,frame)
+    # CSTR BUG NOTE: _save_stack should save the frames verbatim, but likely misses something
     _save_stack((<object>exc).saved_frames,frame,(<object>exc).local_vars)
     # TJ ADD END
     return exc
@@ -578,10 +590,12 @@ cdef _save_stack(object saved_frames,PyFrameObject* cFrame, object local_vars):
     else:
         from_interrupt=True
     while cFrame!=NULL:
+        # CSTR BUG NOTE: here we loop through every frame thats currently on the stack
         # TODO: SAVE local_vars
         # TJ BEGIN
         local_vars.append(step_info(cFrame))
         # Tj END
+        # CSTR BUG NOTE: save_frame function is called
         saved_frames.append(save_frame(cFrame,from_interrupt=from_interrupt))
         from_interrupt=False # only the top frame of an interrupt is different
         cFrame=cFrame.f_back
