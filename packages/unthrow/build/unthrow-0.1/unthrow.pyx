@@ -486,13 +486,11 @@ cdef int _check_blocks(PyFrameObject* frame):
             else:
                 return False
 
-c_trace_count = 0
+trace_tot_count = 0
 cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                  int what, PyObject *arg):
-    global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level, c_trace_count
+    global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level, trace_tot_count
     # ADD TJ
-    c_trace_count = c_trace_count + 1
-    print(c_trace_count)
     # ADD TJ END
     if in_resume:
         # in resume call, ignore interrupts
@@ -501,6 +499,7 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             # print("RESUME LIST", <object>_resume_list)
             _resume_frame(_resume_list,frame)
     elif interrupts_enabled==1:
+        print(<object>(frame.f_lineno))
         if what==PyTrace_CALL:
             # check if this call is enter or exit of a with
             if <object>(frame.f_code.co_name)=="__enter__" or <object>(frame.f_code.co_name)=="__exit__":
