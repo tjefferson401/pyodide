@@ -17,6 +17,8 @@ traceall=False
 
 DEF PythonVersion=3.9
 
+
+step_list = []
 class Resumer:
     def __init__(self):
         self.finished=False
@@ -499,7 +501,10 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             # print("RESUME LIST", <object>_resume_list)
             _resume_frame(_resume_list,frame)
     elif interrupts_enabled==1:
-        print(<object>(frame.f_lineno))
+        # print(<object>(frame.f_lineno))
+        if what!=PyTrace_RETURN:
+            print(sys.modules[__name__])
+            step_list.append(step_info(frame))
         if what==PyTrace_CALL:
             # check if this call is enter or exit of a with
             if <object>(frame.f_code.co_name)=="__enter__" or <object>(frame.f_code.co_name)=="__exit__":
