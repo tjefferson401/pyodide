@@ -275,7 +275,7 @@ cdef object step_info(PyFrameObject* source_frame):
     slow_locals=None
     lineno = 0
     if source_frame.f_code:
-        slow_locals=(<object>source_frame).f_locals.copy()
+        slow_locals=(<object>source_frame).f_locals
         lineno = (<object>source_frame).f_lineno
         code_name = (<object>source_frame).f_code.co_name
     return (slow_locals, lineno, (<object>source_frame).f_code.co_name)
@@ -501,9 +501,8 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             # print("RESUME LIST", <object>_resume_list)
             _resume_frame(_resume_list,frame)
     elif interrupts_enabled==1:
-        # print(<object>(frame.f_lineno))
-        if what!=PyTrace_RETURN:
-            print(sys.modules[__name__])
+        print(<object>(frame.f_back.f_code.co_name))
+        if <object>(frame.f_code.co_filename) == "<exec>" and <object>(frame.f_code.co_name) !="<lambda>" and what!=PyTrace_RETURN:
             step_list.append(step_info(frame))
         if what==PyTrace_CALL:
             # check if this call is enter or exit of a with
