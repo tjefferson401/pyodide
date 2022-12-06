@@ -503,14 +503,15 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             # print("RESUME LIST", <object>_resume_list)
             _resume_frame(_resume_list,frame)
     elif interrupts_enabled==1:
-        if <object>(frame.f_code.co_filename) == "<exec>" and <object>(frame.f_code.co_name) !="<lambda>" and what!=PyTrace_RETURN:
+        if <object>(frame.f_code.co_filename) == "<exec>" and (<object>frame).f_code.co_name !="<lambda>" and (<object>frame).f_code.co_name!="<module>" and what!=PyTrace_RETURN:
             local_map = (<object>frame).f_locals.copy()
             lineno = (<object>frame).f_lineno
             code_name = (<object>frame).f_code.co_name
-            if karel:
-                step_list.append((lineno, code_name, local_map, js.karelState.getState()))
-            else:
-                step_list.append((lineno, code_name, local_map))
+            # if karel:
+            #     step_list.append((lineno, code_name, local_map, js.karelState.getState()))
+            # else:
+            #     step_list.append((lineno, code_name, local_map))
+            step_list.append((lineno, code_name, local_map, js.karelState.getState()))
         if what==PyTrace_CALL:
             # check if this call is enter or exit of a with
             if <object>(frame.f_code.co_name)=="__enter__" or <object>(frame.f_code.co_name)=="__exit__":
