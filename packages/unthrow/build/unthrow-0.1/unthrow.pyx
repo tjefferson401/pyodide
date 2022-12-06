@@ -11,6 +11,7 @@ import time
 # import json
 # import ast
 import copy
+import js
 # END TJ IMPORTS
 
 traceall=False
@@ -18,7 +19,6 @@ traceall=False
 DEF PythonVersion=3.9
 
 
-step_list = []
 class Resumer:
     def __init__(self):
         self.finished=False
@@ -489,6 +489,8 @@ cdef int _check_blocks(PyFrameObject* frame):
                 return False
 
 trace_tot_count = 0
+step_list = []
+karel = False
 cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                  int what, PyObject *arg):
     global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level, trace_tot_count
@@ -501,9 +503,14 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             # print("RESUME LIST", <object>_resume_list)
             _resume_frame(_resume_list,frame)
     elif interrupts_enabled==1:
-        print(<object>(frame.f_back.f_code.co_name))
         if <object>(frame.f_code.co_filename) == "<exec>" and <object>(frame.f_code.co_name) !="<lambda>" and what!=PyTrace_RETURN:
-            step_list.append(step_info(frame))
+            local_map = (<object>frame).f_locals.copy()
+            lineno = (<object>frame).f_lineno
+            code_name = (<object>frame).f_code.co_name
+            if karel:
+                step_list.append((lineno, code_name, local_map, js.karelState))
+            else:
+                step_list.append((lineno, code_name, local_map))
         if what==PyTrace_CALL:
             # check if this call is enter or exit of a with
             if <object>(frame.f_code.co_name)=="__enter__" or <object>(frame.f_code.co_name)=="__exit__":
