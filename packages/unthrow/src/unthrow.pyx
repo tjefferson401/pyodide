@@ -508,7 +508,7 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             lineno = (<object>frame).f_lineno
             code_name = (<object>frame).f_code.co_name
             if karel:
-                step_list.append((lineno, code_name, local_map, js.karelState))
+                step_list.append((lineno, code_name, local_map, js.karelState.getState()))
             else:
                 step_list.append((lineno, code_name, local_map))
         if what==PyTrace_CALL:

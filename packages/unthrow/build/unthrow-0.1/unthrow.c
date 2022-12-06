@@ -1962,6 +1962,7 @@ static const char __pyx_k_builtins[] = "__builtins__";
 static const char __pyx_k_f_lineno[] = "f_lineno";
 static const char __pyx_k_f_locals[] = "f_locals";
 static const char __pyx_k_finished[] = "finished";
+static const char __pyx_k_getState[] = "getState";
 static const char __pyx_k_original[] = "original";
 static const char __pyx_k_qualname[] = "__qualname__";
 static const char __pyx_k_reversed[] = "reversed";
@@ -2076,6 +2077,7 @@ static PyObject *__pyx_n_s_f_locals;
 static PyObject *__pyx_n_s_find;
 static PyObject *__pyx_n_s_finished;
 static PyObject *__pyx_n_s_freq;
+static PyObject *__pyx_n_s_getState;
 static PyObject *__pyx_n_s_get_instructions;
 static PyObject *__pyx_n_s_getattr;
 static PyObject *__pyx_n_s_getattribute;
@@ -7045,7 +7047,8 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
-  int __pyx_t_6;
+  PyObject *__pyx_t_6 = NULL;
+  int __pyx_t_7;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -7180,7 +7183,7 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
  *             lineno = (<object>frame).f_lineno
  *             code_name = (<object>frame).f_code.co_name             # <<<<<<<<<<<<<<
  *             if karel:
- *                 step_list.append((lineno, code_name, local_map, js.karelState))
+ *                 step_list.append((lineno, code_name, local_map, js.karelState.getState()))
  */
       __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_f_code); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 509, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
@@ -7194,7 +7197,7 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
  *             lineno = (<object>frame).f_lineno
  *             code_name = (<object>frame).f_code.co_name
  *             if karel:             # <<<<<<<<<<<<<<
- *                 step_list.append((lineno, code_name, local_map, js.karelState))
+ *                 step_list.append((lineno, code_name, local_map, js.karelState.getState()))
  *             else:
  */
       __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_karel); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 510, __pyx_L1_error)
@@ -7206,55 +7209,73 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
         /* "unthrow.pyx":511
  *             code_name = (<object>frame).f_code.co_name
  *             if karel:
- *                 step_list.append((lineno, code_name, local_map, js.karelState))             # <<<<<<<<<<<<<<
+ *                 step_list.append((lineno, code_name, local_map, js.karelState.getState()))             # <<<<<<<<<<<<<<
  *             else:
  *                 step_list.append((lineno, code_name, local_map))
  */
         __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_step_list); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 511, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_js); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 511, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_karelState); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 511, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_js); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 511, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = PyTuple_New(4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 511, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_karelState); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 511, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_getState); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 511, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __pyx_t_6 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+          __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_4);
+          if (likely(__pyx_t_6)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+            __Pyx_INCREF(__pyx_t_6);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_4, function);
+          }
+        }
+        __pyx_t_3 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
+        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 511, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_4 = PyTuple_New(4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 511, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
         __Pyx_INCREF(__pyx_v_lineno);
         __Pyx_GIVEREF(__pyx_v_lineno);
-        PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_lineno);
+        PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_lineno);
         __Pyx_INCREF(__pyx_v_code_name);
         __Pyx_GIVEREF(__pyx_v_code_name);
-        PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_code_name);
+        PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_code_name);
         __Pyx_INCREF(__pyx_v_local_map);
         __Pyx_GIVEREF(__pyx_v_local_map);
-        PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_v_local_map);
-        __Pyx_GIVEREF(__pyx_t_4);
-        PyTuple_SET_ITEM(__pyx_t_3, 3, __pyx_t_4);
-        __pyx_t_4 = 0;
-        __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_5, __pyx_t_3); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 511, __pyx_L1_error)
+        PyTuple_SET_ITEM(__pyx_t_4, 2, __pyx_v_local_map);
+        __Pyx_GIVEREF(__pyx_t_3);
+        PyTuple_SET_ITEM(__pyx_t_4, 3, __pyx_t_3);
+        __pyx_t_3 = 0;
+        __pyx_t_7 = __Pyx_PyObject_Append(__pyx_t_5, __pyx_t_4); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 511, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
         /* "unthrow.pyx":510
  *             lineno = (<object>frame).f_lineno
  *             code_name = (<object>frame).f_code.co_name
  *             if karel:             # <<<<<<<<<<<<<<
- *                 step_list.append((lineno, code_name, local_map, js.karelState))
+ *                 step_list.append((lineno, code_name, local_map, js.karelState.getState()))
  *             else:
  */
         goto __pyx_L9;
       }
 
       /* "unthrow.pyx":513
- *                 step_list.append((lineno, code_name, local_map, js.karelState))
+ *                 step_list.append((lineno, code_name, local_map, js.karelState.getState()))
  *             else:
  *                 step_list.append((lineno, code_name, local_map))             # <<<<<<<<<<<<<<
  *         if what==PyTrace_CALL:
  *             # check if this call is enter or exit of a with
  */
       /*else*/ {
-        __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_step_list); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 513, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_step_list); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 513, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 513, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_INCREF(__pyx_v_lineno);
@@ -7266,8 +7287,8 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
         __Pyx_INCREF(__pyx_v_local_map);
         __Pyx_GIVEREF(__pyx_v_local_map);
         PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_v_local_map);
-        __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_5); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 513, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_t_7 = __Pyx_PyObject_Append(__pyx_t_4, __pyx_t_5); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 513, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       }
       __pyx_L9:;
@@ -7354,28 +7375,28 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
  *                 if interrupt_with_level==-1:
  *                     interrupt_with_level=interrupt_call_level
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame->f_code->co_filename), __pyx_n_s_find); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 520, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_4 = NULL;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-        __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-        if (likely(__pyx_t_4)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-          __Pyx_INCREF(__pyx_t_4);
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame->f_code->co_filename), __pyx_n_s_find); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 520, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_3 = NULL;
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_4);
+        if (likely(__pyx_t_3)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+          __Pyx_INCREF(__pyx_t_3);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_3, function);
+          __Pyx_DECREF_SET(__pyx_t_4, function);
         }
       }
-      __pyx_t_5 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_kp_u_importlib) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_kp_u_importlib);
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_5 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_3, __pyx_kp_u_importlib) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_u_importlib);
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 520, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyInt_NeObjC(__pyx_t_5, __pyx_int_neg_1, -1L, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 520, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = __Pyx_PyInt_NeObjC(__pyx_t_5, __pyx_int_neg_1, -1L, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 520, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 520, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 520, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (__pyx_t_1) {
 
         /* "unthrow.pyx":521
@@ -7697,11 +7718,11 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
           __pyx_t_1 = __pyx_t_2;
           goto __pyx_L31_bool_binop_done;
         }
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_f_code); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 548, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_co_name); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_f_code); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_co_name); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 548, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_t_5, __pyx_n_u_init, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 548, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __pyx_t_1 = __pyx_t_2;
@@ -7809,6 +7830,7 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_WriteUnraisable("unthrow._c_trace_fn", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
@@ -10757,6 +10779,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_find, __pyx_k_find, sizeof(__pyx_k_find), 0, 0, 1, 1},
   {&__pyx_n_s_finished, __pyx_k_finished, sizeof(__pyx_k_finished), 0, 0, 1, 1},
   {&__pyx_n_s_freq, __pyx_k_freq, sizeof(__pyx_k_freq), 0, 0, 1, 1},
+  {&__pyx_n_s_getState, __pyx_k_getState, sizeof(__pyx_k_getState), 0, 0, 1, 1},
   {&__pyx_n_s_get_instructions, __pyx_k_get_instructions, sizeof(__pyx_k_get_instructions), 0, 0, 1, 1},
   {&__pyx_n_s_getattr, __pyx_k_getattr, sizeof(__pyx_k_getattr), 0, 0, 1, 1},
   {&__pyx_n_s_getattribute, __pyx_k_getattribute, sizeof(__pyx_k_getattribute), 0, 0, 1, 1},
