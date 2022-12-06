@@ -503,7 +503,7 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             # print("RESUME LIST", <object>_resume_list)
             _resume_frame(_resume_list,frame)
     elif interrupts_enabled==1:
-        if <object>(frame.f_code.co_filename) == "<exec>" and (<object>frame).f_code.co_name !="<lambda>" and (<object>frame).f_code.co_name!="<module>" and (<object>frame).f_code.co_name[0:2]!="__" and what!=PyTrace_RETURN:
+        if <object>(frame.f_code.co_filename) == "<exec>" and (<object>frame).f_code.co_name !="<lambda>" and (<object>frame).f_code.co_name!="<module>" and (<object>frame).f_code.co_name !="__throwSleep" and what!=PyTrace_RETURN:
             local_map = (<object>frame).f_locals.copy()
             lineno = (<object>frame).f_lineno
             code_name = (<object>frame).f_code.co_name
