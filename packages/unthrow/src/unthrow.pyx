@@ -72,7 +72,8 @@ class Resumer:
         self.running=0
         interrupts_enabled=0
         if self.finished:
-            print((<object>(<PyObject*>self.resume_stack)).f_lineno)
+            frameinfo = inspect.getframeinfo(inspect.currentframe())
+            print(frameinfo.filename, frameinfo.lineno)
         return self.finished
 
     def set_interrupt_frequency(self,freq):
