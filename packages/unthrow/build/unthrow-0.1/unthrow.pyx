@@ -71,6 +71,8 @@ class Resumer:
         set_interrupt_frequency(0)
         self.running=0
         interrupts_enabled=0
+        if self.finished:
+            print((<object>(<PyObject*>self.resume_stack)).f_lineno)
         return self.finished
 
     def set_interrupt_frequency(self,freq):
@@ -507,6 +509,8 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             local_map = (<object>frame).f_locals.copy()
             lineno = (<object>frame).f_lineno
             code_name = (<object>frame).f_code.co_name
+            print(lineno)
+            print(code_name[:3])
             if karel:
                 step_list.append((lineno, code_name, local_map, js.karelState.getState()))
             else:
