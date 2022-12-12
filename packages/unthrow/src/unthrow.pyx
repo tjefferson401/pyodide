@@ -511,7 +511,8 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             lineno = (<object>frame).f_lineno
             code_name = (<object>frame).f_code.co_name
             print(lineno)
-            print(code_name[:3])
+
+            print(code_name[:4] == "run_")
             if karel:
                 step_list.append((lineno, code_name, local_map, js.karelState.getState()))
             else:
