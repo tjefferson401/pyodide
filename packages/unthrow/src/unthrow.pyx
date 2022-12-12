@@ -73,7 +73,11 @@ class Resumer:
         interrupts_enabled=0
         if self.finished:
             frameinfo = inspect.getframeinfo(inspect.currentframe())
-            print(frameinfo.filename, frameinfo.lineno)
+            if karel:
+                step_list.append((frameinfo.lineno, frameinfo.function, inspect.currentframe().f_locals, js.karelState.getState()))
+            else:
+                step_list.append((frameinfo.lineno, frameinfo.function, inspect.currentframe().f_locals))
+            print(frameinfo.function, frameinfo.lineno)
         return self.finished
 
     def set_interrupt_frequency(self,freq):
@@ -506,13 +510,10 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             # print("RESUME LIST", <object>_resume_list)
             _resume_frame(_resume_list,frame)
     elif interrupts_enabled==1:
-        if <object>(frame.f_code.co_filename) == "<exec>" and (<object>frame).f_code.co_name !="<lambda>" and (<object>frame).f_code.co_name!="<module>" and (<object>frame).f_code.co_name !="__throwSleep" and what!=PyTrace_RETURN:
+        if <object>(frame.f_code.co_filename) == "<exec>" and (<object>frame).f_code.co_name != "run_karel_program" and (<object>frame).f_code.co_name !="<lambda>" and (<object>frame).f_code.co_name!="<module>" and ((<object>frame).f_code.co_name)[:6] !="cip___" and what!=PyTrace_RETURN:
             local_map = (<object>frame).f_locals.copy()
             lineno = (<object>frame).f_lineno
             code_name = (<object>frame).f_code.co_name
-            print(lineno)
-
-            print(code_name[:4] == "run_")
             if karel:
                 step_list.append((lineno, code_name, local_map, js.karelState.getState()))
             else:
