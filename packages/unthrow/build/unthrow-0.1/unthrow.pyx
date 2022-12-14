@@ -77,7 +77,6 @@ class Resumer:
                 step_list.append((frameinfo.lineno, frameinfo.function, inspect.currentframe().f_locals, js.karelState.getState()))
             else:
                 step_list.append((frameinfo.lineno, frameinfo.function, inspect.currentframe().f_locals))
-            print(frameinfo.function, frameinfo.lineno)
         return self.finished
 
     def set_interrupt_frequency(self,freq):
