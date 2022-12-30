@@ -40,7 +40,7 @@ class Resumer:
         set_resume(0)
 
     def run_once(self,mainfn,args):
-        global interrupts_enabled
+        global interrupts_enabled, print_ln, print_msg, input_ln, input_msg
         if self.resume_stack:
             _do_resume(<PyObject*>self.resume_stack) # --> _do_resume
             self.resume_stack=None
@@ -76,9 +76,29 @@ class Resumer:
         if step_mode and self.finished:
             frameinfo = inspect.getframeinfo(inspect.currentframe())
             if karel:
-                step_list.append((frameinfo.lineno, frameinfo.function, inspect.currentframe().f_locals, js.karelState.getState()))
+                step_list.append({
+                    "lineno"    : frameinfo.lineno,
+                    "codenm"    : "Program Ended",
+                    "locals"    : {},
+                    "println"   : print_ln,
+                    "inputln"   : input_ln,
+                    "printmsg"  : print_msg,
+                    "inputmsg"  : input_msg,
+                    "karel"     : js.karelState.getState()
+                })
             else:
                 step_list.append((frameinfo.lineno, frameinfo.function, inspect.currentframe().f_locals))
+                step_list.append({
+                    "lineno"    : frameinfo.lineno,
+                    "codenm"    : "Program Ended",
+                    "locals"    : {},
+                    "println"   : print_ln,
+                    "inputln"   : input_ln,
+                    "printmsg"  : print_msg,
+                    "inputmsg"  : input_msg
+                })
+            print_ln = False
+            input_ln = False
         return self.finished
 
     def set_interrupt_frequency(self,freq):
@@ -506,7 +526,7 @@ input_msg = ""
 
 cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                  int what, PyObject *arg):
-    global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level, trace_tot_count
+    global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level, trace_tot_count, print_ln, print_msg, input_ln, input_msg
     # ADD TJ
     # ADD TJ END
     if in_resume:
@@ -544,6 +564,8 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
 
                 }
                 step_list.append(info)
+            print_ln = False
+            input_ln = False
         if what==PyTrace_CALL:
             # check if this call is enter or exit of a with
             if <object>(frame.f_code.co_name)=="__enter__" or <object>(frame.f_code.co_name)=="__exit__":
