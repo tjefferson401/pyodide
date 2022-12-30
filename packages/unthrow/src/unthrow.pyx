@@ -499,6 +499,11 @@ cdef int _check_blocks(PyFrameObject* frame):
 trace_tot_count = 0
 step_list = []
 karel = False
+print_ln = False
+print_msg = ""
+input_ln = False
+input_msg = ""
+
 cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                  int what, PyObject *arg):
     global interrupt_frequency,interrupt_counter,interrupts_enabled,interrupt_call_level,interrupt_with_level, trace_tot_count
@@ -516,9 +521,29 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             lineno = (<object>frame).f_lineno
             code_name = (<object>frame).f_code.co_name
             if karel:
-                step_list.append((lineno, code_name, local_map, js.karelState.getState()))
+                info = {
+                    "lineno"    : lineno,
+                    "codenm"    : code_name,
+                    "locals"    : local_map,
+                    "println"   : print_ln,
+                    "inputln"   : input_ln,
+                    "printmsg"  : print_msg,
+                    "inputmsg"  : input_msg,
+                    "karel"     : js.karelState.getState()
+                }
+                step_list.append(info)
             else:
-                step_list.append((lineno, code_name, local_map))
+                info = {
+                    "lineno"    : lineno,
+                    "codenm"    : code_name,
+                    "locals"    : local_map,
+                    "println"   : print_ln,
+                    "inputln"   : input_ln,
+                    "printmsg"  : print_msg,
+                    "inputmsg"  : input_msg
+
+                }
+                step_list.append(info)
         if what==PyTrace_CALL:
             # check if this call is enter or exit of a with
             if <object>(frame.f_code.co_name)=="__enter__" or <object>(frame.f_code.co_name)=="__exit__":
