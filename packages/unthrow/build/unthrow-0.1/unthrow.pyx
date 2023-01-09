@@ -18,7 +18,7 @@ traceall=False
 step_mode = False
 step_list = []
 karel = False
-term_log = ''
+term_log = []
 
 
 DEF PythonVersion=3.9
