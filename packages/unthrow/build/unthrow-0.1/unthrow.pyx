@@ -83,7 +83,7 @@ class Resumer:
                     "lineno"    : frameinfo.lineno,
                     "codenm"    : "Program Ended",
                     "locals"    : {},
-                    "log"       : term_log,
+                    "log"       : term_log.copy(),
                     "karel"     : js.karelState.getState()
                 })
             else:
@@ -91,7 +91,7 @@ class Resumer:
                     "lineno"    : frameinfo.lineno,
                     "codenm"    : "Program Ended",
                     "locals"    : {},
-                    "log"       : term_log
+                    "log"       : term_log.copy()
                 })
         return self.finished
 
@@ -531,7 +531,7 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                     "lineno"    : lineno,
                     "codenm"    : code_name,
                     "locals"    : local_map,
-                    "log"       : term_log,
+                    "log"       : term_log.copy(),
                     "karel"     : js.karelState.getState()
                 }
                 step_list.append(info)
@@ -540,7 +540,7 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
                     "lineno"    : lineno,
                     "codenm"    : code_name,
                     "locals"    : local_map,
-                    "log"       : term_log
+                    "log"       : term_log.copy()
 
                 }
                 step_list.append(info)

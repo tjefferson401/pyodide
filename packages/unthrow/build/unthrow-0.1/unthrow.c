@@ -3063,7 +3063,7 @@ static PyObject *__pyx_pf_7unthrow_7Resumer_4run_once(CYTHON_UNUSED PyObject *__
  *                     "lineno"    : frameinfo.lineno,
  *                     "codenm"    : "Program Ended",
  *                     "locals"    : {},             # <<<<<<<<<<<<<<
- *                     "log"       : term_log,
+ *                     "log"       : term_log.copy(),
  *                     "karel"     : js.karelState.getState()
  */
       __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
@@ -3074,45 +3074,63 @@ static PyObject *__pyx_pf_7unthrow_7Resumer_4run_once(CYTHON_UNUSED PyObject *__
       /* "unthrow.pyx":86
  *                     "codenm"    : "Program Ended",
  *                     "locals"    : {},
- *                     "log"       : term_log,             # <<<<<<<<<<<<<<
+ *                     "log"       : term_log.copy(),             # <<<<<<<<<<<<<<
  *                     "karel"     : js.karelState.getState()
  *                 })
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_term_log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_term_log); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 86, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_copy); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 86, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      __pyx_t_10 = NULL;
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
+        __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_9);
+        if (likely(__pyx_t_10)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+          __Pyx_INCREF(__pyx_t_10);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_9, function);
+        }
+      }
+      __pyx_t_1 = (__pyx_t_10) ? __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_10) : __Pyx_PyObject_CallNoArg(__pyx_t_9);
+      __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       if (PyDict_SetItem(__pyx_t_8, __pyx_n_u_log, __pyx_t_1) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
       /* "unthrow.pyx":87
  *                     "locals"    : {},
- *                     "log"       : term_log,
+ *                     "log"       : term_log.copy(),
  *                     "karel"     : js.karelState.getState()             # <<<<<<<<<<<<<<
  *                 })
  *             else:
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_js); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 87, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_karelState); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 87, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_js); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 87, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_getState); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 87, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_karelState); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 87, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = NULL;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_10))) {
-        __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_10);
-        if (likely(__pyx_t_9)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
-          __Pyx_INCREF(__pyx_t_9);
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_getState); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 87, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      __pyx_t_10 = NULL;
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
+        __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_9);
+        if (likely(__pyx_t_10)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+          __Pyx_INCREF(__pyx_t_10);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_10, function);
+          __Pyx_DECREF_SET(__pyx_t_9, function);
         }
       }
-      __pyx_t_1 = (__pyx_t_9) ? __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_9) : __Pyx_PyObject_CallNoArg(__pyx_t_10);
-      __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __pyx_t_1 = (__pyx_t_10) ? __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_10) : __Pyx_PyObject_CallNoArg(__pyx_t_9);
+      __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
       if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       if (PyDict_SetItem(__pyx_t_8, __pyx_n_u_karel, __pyx_t_1) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -3167,7 +3185,7 @@ static PyObject *__pyx_pf_7unthrow_7Resumer_4run_once(CYTHON_UNUSED PyObject *__
  *                     "lineno"    : frameinfo.lineno,
  *                     "codenm"    : "Program Ended",
  *                     "locals"    : {},             # <<<<<<<<<<<<<<
- *                     "log"       : term_log
+ *                     "log"       : term_log.copy()
  *                 })
  */
       __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
@@ -3178,12 +3196,30 @@ static PyObject *__pyx_pf_7unthrow_7Resumer_4run_once(CYTHON_UNUSED PyObject *__
       /* "unthrow.pyx":94
  *                     "codenm"    : "Program Ended",
  *                     "locals"    : {},
- *                     "log"       : term_log             # <<<<<<<<<<<<<<
+ *                     "log"       : term_log.copy()             # <<<<<<<<<<<<<<
  *                 })
  *         return self.finished
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_term_log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_term_log); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 94, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_copy); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 94, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __pyx_t_9 = NULL;
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_10))) {
+        __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_10);
+        if (likely(__pyx_t_9)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
+          __Pyx_INCREF(__pyx_t_9);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_10, function);
+        }
+      }
+      __pyx_t_1 = (__pyx_t_9) ? __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_9) : __Pyx_PyObject_CallNoArg(__pyx_t_10);
+      __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       if (PyDict_SetItem(__pyx_t_7, __pyx_n_u_log, __pyx_t_1) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -3210,7 +3246,7 @@ static PyObject *__pyx_pf_7unthrow_7Resumer_4run_once(CYTHON_UNUSED PyObject *__
   }
 
   /* "unthrow.pyx":96
- *                     "log"       : term_log
+ *                     "log"       : term_log.copy()
  *                 })
  *         return self.finished             # <<<<<<<<<<<<<<
  * 
@@ -7578,7 +7614,7 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
  *                     "lineno"    : lineno,
  *                     "codenm"    : code_name,             # <<<<<<<<<<<<<<
  *                     "locals"    : local_map,
- *                     "log"       : term_log,
+ *                     "log"       : term_log.copy(),
  */
         if (PyDict_SetItem(__pyx_t_5, __pyx_n_u_codenm, __pyx_v_code_name) < 0) __PYX_ERR(0, 531, __pyx_L1_error)
 
@@ -7586,7 +7622,7 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
  *                     "lineno"    : lineno,
  *                     "codenm"    : code_name,
  *                     "locals"    : local_map,             # <<<<<<<<<<<<<<
- *                     "log"       : term_log,
+ *                     "log"       : term_log.copy(),
  *                     "karel"     : js.karelState.getState()
  */
         if (PyDict_SetItem(__pyx_t_5, __pyx_n_u_locals, __pyx_v_local_map) < 0) __PYX_ERR(0, 531, __pyx_L1_error)
@@ -7594,45 +7630,63 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
         /* "unthrow.pyx":534
  *                     "codenm"    : code_name,
  *                     "locals"    : local_map,
- *                     "log"       : term_log,             # <<<<<<<<<<<<<<
+ *                     "log"       : term_log.copy(),             # <<<<<<<<<<<<<<
  *                     "karel"     : js.karelState.getState()
  *                 }
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_term_log); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 534, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_term_log); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 534, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_copy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 534, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
+          __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_6);
+          if (likely(__pyx_t_2)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+            __Pyx_INCREF(__pyx_t_2);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_6, function);
+          }
+        }
+        __pyx_t_4 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_6);
+        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 534, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         if (PyDict_SetItem(__pyx_t_5, __pyx_n_u_log, __pyx_t_4) < 0) __PYX_ERR(0, 531, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
         /* "unthrow.pyx":535
  *                     "locals"    : local_map,
- *                     "log"       : term_log,
+ *                     "log"       : term_log.copy(),
  *                     "karel"     : js.karelState.getState()             # <<<<<<<<<<<<<<
  *                 }
  *                 step_list.append(info)
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_js); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 535, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_karelState); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 535, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_js); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 535, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_getState); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 535, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_karelState); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 535, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = NULL;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-          __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_2);
-          if (likely(__pyx_t_6)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-            __Pyx_INCREF(__pyx_t_6);
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_getState); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 535, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
+          __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_6);
+          if (likely(__pyx_t_2)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+            __Pyx_INCREF(__pyx_t_2);
             __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_2, function);
+            __Pyx_DECREF_SET(__pyx_t_6, function);
           }
         }
-        __pyx_t_4 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
-        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __pyx_t_4 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_6);
+        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 535, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         if (PyDict_SetItem(__pyx_t_5, __pyx_n_u_karel, __pyx_t_4) < 0) __PYX_ERR(0, 531, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_v_info = ((PyObject*)__pyx_t_5);
@@ -7685,7 +7739,7 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
  *                     "lineno"    : lineno,
  *                     "codenm"    : code_name,             # <<<<<<<<<<<<<<
  *                     "locals"    : local_map,
- *                     "log"       : term_log
+ *                     "log"       : term_log.copy()
  */
         if (PyDict_SetItem(__pyx_t_5, __pyx_n_u_codenm, __pyx_v_code_name) < 0) __PYX_ERR(0, 540, __pyx_L1_error)
 
@@ -7693,7 +7747,7 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
  *                     "lineno"    : lineno,
  *                     "codenm"    : code_name,
  *                     "locals"    : local_map,             # <<<<<<<<<<<<<<
- *                     "log"       : term_log
+ *                     "log"       : term_log.copy()
  * 
  */
         if (PyDict_SetItem(__pyx_t_5, __pyx_n_u_locals, __pyx_v_local_map) < 0) __PYX_ERR(0, 540, __pyx_L1_error)
@@ -7701,12 +7755,30 @@ static int __pyx_f_7unthrow__c_trace_fn(PyObject *__pyx_v_self, PyFrameObject *_
         /* "unthrow.pyx":543
  *                     "codenm"    : code_name,
  *                     "locals"    : local_map,
- *                     "log"       : term_log             # <<<<<<<<<<<<<<
+ *                     "log"       : term_log.copy()             # <<<<<<<<<<<<<<
  * 
  *                 }
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_term_log); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_term_log); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __pyx_t_6 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+          __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_2);
+          if (likely(__pyx_t_6)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+            __Pyx_INCREF(__pyx_t_6);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_2, function);
+          }
+        }
+        __pyx_t_4 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
+        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         if (PyDict_SetItem(__pyx_t_5, __pyx_n_u_log, __pyx_t_4) < 0) __PYX_ERR(0, 540, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_v_info = ((PyObject*)__pyx_t_5);
