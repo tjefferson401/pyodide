@@ -2,7 +2,7 @@
 ["c++", "-print-file-name=libomp.so"]
 ["c++", "-print-file-name=libgomp.so"]
 ["c++", "-print-file-name=libiomp5.so"]
-["gcc", "-Wl,-t", "-o", "/tmp/tmprih8iw9z", "-lomp"]
+["gcc", "-Wl,-t", "-o", "/tmp/tmpqcl1ld6h", "-lomp"]
 ["ld", "-t", "-o", "/dev/null", "-lomp"]
 ["cc", "-Wno-unused-result", "-Wsign-compare", "-DNDEBUG", "-g", "-fwrapv", "-O3", "-Wall", "-fPIC", "-I/usr/local/include/python3.9", "-c", "unthrow.c", "-o", "build/temp.linux-x86_64-3.9/unthrow.o"]
 ["gcc", "-pthread", "-shared", "-Wl,--strip-all", "build/temp.linux-x86_64-3.9/unthrow.o", "-L/usr/local/lib", "-o", "build/lib.linux-x86_64-3.9/unthrow.cpython-39-x86_64-linux-gnu.so"]
