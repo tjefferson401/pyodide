@@ -19,6 +19,7 @@ step_mode = False
 step_list = []
 karel = False
 term_log = []
+max_sl_size = 500
 
 
 DEF PythonVersion=3.9
@@ -132,6 +133,10 @@ def test_iter(maxVal):
         print("TI:",c)
         yield c
 
+def save_log(log):
+    global term_log
+    if len(term_log) < max_sl_size/2:
+        term_log.append(log)
 
 cdef int  __skip_stop=False
 
@@ -522,7 +527,7 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             # print("RESUME LIST", <object>_resume_list)
             _resume_frame(_resume_list,frame)
     elif interrupts_enabled==1:
-        if step_mode:
+        if step_mode and len(step_list) < max_sl_size:
             if <object>(frame.f_code.co_filename) == "<exec>" and (<object>frame).f_code.co_name != "run_karel_program" and (<object>frame).f_code.co_name !="<lambda>" and (<object>frame).f_code.co_name!="<module>" and ((<object>frame).f_code.co_name)[:6] !="cip___" and what!=PyTrace_RETURN:
                 local_map = (<object>frame).f_locals.copy()
                 lineno = (<object>frame).f_lineno
