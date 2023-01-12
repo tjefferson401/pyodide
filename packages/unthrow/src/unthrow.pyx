@@ -79,21 +79,14 @@ class Resumer:
         interrupts_enabled=0
         if step_mode and self.finished:
             frameinfo = inspect.getframeinfo(inspect.currentframe())
-            if karel:
-                step_list.append({
-                    "lineno"    : frameinfo.lineno,
-                    "codenm"    : "Program Ended",
-                    "locals"    : {},
-                    "log"       : term_log.copy(),
-                    "karel"     : js.karelState.getState()
-                })
-            else:
-                step_list.append({
-                    "lineno"    : frameinfo.lineno,
-                    "codenm"    : "Program Ended",
-                    "locals"    : {},
-                    "log"       : term_log.copy()
-                })
+            info = {
+                "lineno"    : frameinfo.lineno,
+                "codenm"    : "Program Ended",
+                "locals"    : {},
+                "logptr"    : len(term_log)
+            }
+            save_step(info)
+
         return self.finished
 
     def set_interrupt_frequency(self,freq):
@@ -135,8 +128,17 @@ def test_iter(maxVal):
 
 def save_log(log):
     global term_log
-    if len(term_log) < max_sl_size/2:
-        term_log.append(log)
+    if len(term_log) > max_sl_size/2:
+        term_log.pop()
+    term_log.append(log)
+
+def save_step(stepobj):
+    global step_list
+    if karel:
+        stepobj['karel'] = js.karelState.getState()
+    if len(step_list) > max_sl_size:
+        step_list.pop()
+    step_list.append(stepobj)
 
 cdef int  __skip_stop=False
 
@@ -527,29 +529,18 @@ cdef int _c_trace_fn(PyObject *self, PyFrameObject *frame,
             # print("RESUME LIST", <object>_resume_list)
             _resume_frame(_resume_list,frame)
     elif interrupts_enabled==1:
-        if step_mode and len(step_list) < max_sl_size:
+        if step_mode:
             if <object>(frame.f_code.co_filename) == "<exec>" and (<object>frame).f_code.co_name != "run_karel_program" and (<object>frame).f_code.co_name !="<lambda>" and (<object>frame).f_code.co_name!="<module>" and ((<object>frame).f_code.co_name)[:6] !="cip___" and what!=PyTrace_RETURN:
                 local_map = (<object>frame).f_locals.copy()
                 lineno = (<object>frame).f_lineno
                 code_name = (<object>frame).f_code.co_name
-                if karel:
-                    info = {
-                        "lineno"    : lineno,
-                        "codenm"    : code_name,
-                        "locals"    : local_map,
-                        "log"       : term_log.copy(),
-                        "karel"     : js.karelState.getState()
-                    }
-                    step_list.append(info)
-                else:
-                    info = {
-                        "lineno"    : lineno,
-                        "codenm"    : code_name,
-                        "locals"    : local_map,
-                        "log"       : term_log.copy()
-
-                    }
-                    step_list.append(info)
+                info = {
+                    "lineno"    : lineno,
+                    "codenm"    : code_name,
+                    "locals"    : local_map,
+                    "logptr"    : len(term_log)
+                }
+                save_step(info)
         if what==PyTrace_CALL:
             # check if this call is enter or exit of a with
             if <object>(frame.f_code.co_name)=="__enter__" or <object>(frame.f_code.co_name)=="__exit__":
